@@ -41,11 +41,17 @@ class HomeAppBar extends StatelessWidget {
                 'Pokédex',
                 style: TextStyles.applicationTitle,
               ),
-              const SizedBox(
-                height: 8,
+              const Padding(
+                padding: EdgeInsets.only(top: 8, bottom: 16),
+                child: Text(
+                    'Search for Pokémon by name or using the National Pokédex number.'),
               ),
-              const Text(
-                  'Search for Pokémon by name or using the National Pokédex number.')
+              const TextField(
+                decoration: InputDecoration(
+                  hintText: "What Pokémon are you looking for?",
+                  prefixIcon: Icon(Icons.search_outlined),
+                ),
+              )
             ],
           ),
         )
@@ -57,7 +63,7 @@ class HomeAppBar extends StatelessWidget {
 class _FilterButton extends StatelessWidget {
   final String asset;
   final Function() onTap;
-  const _FilterButton({super.key, required this.asset, required this.onTap});
+  const _FilterButton({required this.asset, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
