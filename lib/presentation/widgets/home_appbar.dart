@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/config/theme/text_styles.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
@@ -7,12 +8,14 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.asset("assets/images/gradient-pokeball.png",
-            // color: const Color(0xFFB5B9C4).withOpacity(0.05),
-            color: Colors.red),
+        Image.asset(
+          "assets/images/gradient-pokeball.png",
+          color: const Color(0xFFB5B9C4).withOpacity(0.05),
+        ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(23, 50, 23, 23),
+          padding: const EdgeInsets.fromLTRB(30, 60, 30, 23),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -31,6 +34,18 @@ class HomeAppBar extends StatelessWidget {
                       onTap: () {}),
                 ],
               ),
+              const SizedBox(
+                height: 16,
+              ),
+              const Text(
+                'Pokédex',
+                style: TextStyles.applicationTitle,
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              const Text(
+                  'Search for Pokémon by name or using the National Pokédex number.')
             ],
           ),
         )
