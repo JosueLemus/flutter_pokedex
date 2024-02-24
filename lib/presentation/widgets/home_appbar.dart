@@ -24,7 +24,7 @@ class HomeAppBar extends StatelessWidget {
                       asset: 'assets/images/home-filters/Generation.png',
                       onTap: () {}),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: _FilterButton(
                         asset: 'assets/images/home-filters/Sort.png',
                         onTap: () {}),
@@ -35,7 +35,7 @@ class HomeAppBar extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 16,
+                height: 8,
               ),
               const Text(
                 'Pokédex',
@@ -69,10 +69,14 @@ class _FilterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Image.asset(
-        asset,
-        width: 25,
-        height: 25,
+      borderRadius: BorderRadius.circular(4),
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Image.asset(
+          asset,
+          width: 25,
+          height: 25,
+        ),
       ),
     );
   }
