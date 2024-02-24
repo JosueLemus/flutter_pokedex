@@ -22,7 +22,9 @@ class HomeAppBar extends StatelessWidget {
                 children: [
                   _FilterButton(
                       asset: 'assets/images/home-filters/Generation.png',
-                      onTap: () {}),
+                      onTap: () {
+                        showCustomModalBottomSheet(context, Container());
+                      }),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: _FilterButton(
@@ -48,7 +50,7 @@ class HomeAppBar extends StatelessWidget {
               ),
               const TextField(
                 decoration: InputDecoration(
-                  hintText: "What Pokémon are you looking for?",
+                  hintText: "What Pokémon are you looking for?dsad",
                   prefixIcon: Icon(Icons.search_outlined),
                 ),
               )
@@ -58,6 +60,40 @@ class HomeAppBar extends StatelessWidget {
       ],
     );
   }
+}
+
+void showCustomModalBottomSheet(BuildContext context, Widget child) {
+  showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+      ),
+      context: context,
+      builder: (context) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+                width: 100,
+                height: 8,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10))),
+            const SizedBox(height: 8),
+            Container(
+              height: 400,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  color: Colors.white),
+              child: child,
+            ),
+          ],
+        );
+      });
 }
 
 class _FilterButton extends StatelessWidget {
