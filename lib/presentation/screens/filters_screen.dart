@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/config/constants/filters_constants.dart';
-import 'package:pokedex/config/theme/app_colors.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/widgets/filters_appbar.dart';
+import 'package:pokedex/presentation/widgets/primary_button.dart';
+import 'package:pokedex/presentation/widgets/secondary_button.dart';
 
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key});
@@ -75,6 +76,18 @@ class _FiltersScreenState extends State<FiltersScreen> {
             listOfElements: FiltersContants.pokemonWeights,
             selectedItems: [selectedWeight],
             onSelect: onSelectWeight),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 16),
+          child: Row(
+            children: [
+              Expanded(child: SecondaryButton(title: 'Reset', onTap: () {})),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(child: PrimaryButton(title: 'Apply', onTap: () {}))
+            ],
+          ),
+        ),
         const SizedBox(
           height: 40,
         )
