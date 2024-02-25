@@ -22,6 +22,11 @@ class SelectedSortUpdated extends PokemonListEvent {
   const SelectedSortUpdated({required this.selectedSort});
 }
 
+class SearchPokemon extends PokemonListEvent {
+  final String textToSearch;
+  const SearchPokemon({required this.textToSearch});
+}
+
 class FiltersApplied extends PokemonListEvent {
   final List<String> types;
   final List<String> weaknesses;

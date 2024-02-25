@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/config/helpers/debounce_helper.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
@@ -12,6 +13,7 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final debouncer = Debouncer(milliseconds: 2000);
     return Stack(
       children: [
         Image.asset(
@@ -91,9 +93,16 @@ class HomeAppBar extends StatelessWidget {
                 child: Text(
                     'Search for Pokémon by name or using the National Pokédex number.'),
               ),
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: "What Pokémon are you looking for?dsad",
+              TextField(
+                onChanged: (value) {
+                  debouncer.run(() {
+                    context
+                        .read<PokemonListBloc>()
+                        .add(SearchPokemon(textToSearch: value));
+                  });
+                },
+                decoration: const InputDecoration(
+                  hintText: "What Pokémon are you looking for?",
                   prefixIcon: Icon(Icons.search_outlined),
                 ),
               )

@@ -10,6 +10,11 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     on<GetPokemonList>((event, emit) {
       // TODO: get pokemon list from api
     });
+
+    on<SearchPokemon>((event, emit) {
+      print(event.textToSearch);
+    });
+
     on<SelectedGenerationUpdated>((event, emit) {
       emit(state.copyWith(selectedGeneration: event.selectedGeneration));
     });
