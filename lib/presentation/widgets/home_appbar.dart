@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/screens/filters_screen.dart';
+import 'package:pokedex/presentation/screens/generations_screen.dart';
 import 'package:pokedex/presentation/screens/sort_screen.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -26,7 +27,10 @@ class HomeAppBar extends StatelessWidget {
                       asset: 'assets/images/home-filters/Generation.png',
                       onTap: () {
                         showCustomModalBottomSheet(
-                            context, const FiltersScreen());
+                            context,
+                            const GenerationsScreen(
+                              selectedGeneration: '1',
+                            ));
                       }),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
