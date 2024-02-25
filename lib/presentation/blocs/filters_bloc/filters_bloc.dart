@@ -7,43 +7,44 @@ part 'filters_state.dart';
 class FiltersBloc extends Bloc<FiltersEvent, FiltersState> {
   FiltersBloc() : super(FiltersInitial()) {
     on<ListUpdated>((event, emit) {
+      final List<String> listOfStrings = [];
       final newValue = event.newValue;
       switch (event.filterType) {
         case FiltersTypes.heights:
-          final heightsList = state.heights;
-          if (heightsList.contains(newValue)) {
-            heightsList.remove(newValue);
+          listOfStrings.addAll(state.heights);
+          if (listOfStrings.contains(newValue)) {
+            listOfStrings.remove(newValue);
           } else {
-            heightsList.add(newValue);
+            listOfStrings.add(newValue);
           }
-          emit(state.copyWith(heights: heightsList));
+          emit(state.copyWith(heights: listOfStrings));
           break;
         case FiltersTypes.weights:
-          final weightsList = state.weights;
-          if (weightsList.contains(newValue)) {
-            weightsList.remove(newValue);
+          listOfStrings.addAll(state.weights);
+          if (listOfStrings.contains(newValue)) {
+            listOfStrings.remove(newValue);
           } else {
-            weightsList.add(newValue);
+            listOfStrings.add(newValue);
           }
-          emit(state.copyWith(weights: weightsList));
+          emit(state.copyWith(weights: listOfStrings));
           break;
         case FiltersTypes.types:
-          final typesList = state.types;
-          if (typesList.contains(newValue)) {
-            typesList.remove(newValue);
+          listOfStrings.addAll(state.types);
+          if (listOfStrings.contains(newValue)) {
+            listOfStrings.remove(newValue);
           } else {
-            typesList.add(newValue);
+            listOfStrings.add(newValue);
           }
-          emit(state.copyWith(types: typesList));
+          emit(state.copyWith(types: listOfStrings));
           break;
         case FiltersTypes.weaknesses:
-          final weaknessesList = state.weaknesses;
-          if (weaknessesList.contains(newValue)) {
-            weaknessesList.remove(newValue);
+          listOfStrings.addAll(state.weaknesses);
+          if (listOfStrings.contains(newValue)) {
+            listOfStrings.remove(newValue);
           } else {
-            weaknessesList.add(newValue);
+            listOfStrings.add(newValue);
           }
-          emit(state.copyWith(weaknesses: weaknessesList));
+          emit(state.copyWith(weaknesses: listOfStrings));
           break;
       }
     });

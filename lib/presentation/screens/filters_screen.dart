@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/config/constants/filters_constants.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/blocs/filters_bloc/filters_bloc.dart';
+import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
 import 'package:pokedex/presentation/widgets/filters_appbar.dart';
 import 'package:pokedex/presentation/widgets/primary_button.dart';
 import 'package:pokedex/presentation/widgets/secondary_button.dart';
@@ -67,7 +68,19 @@ class FiltersScreen extends StatelessWidget {
               const SizedBox(
                 width: 16,
               ),
-              Expanded(child: PrimaryButton(title: 'Apply', onTap: () {}))
+              Expanded(
+                  child: PrimaryButton(
+                      title: 'Apply',
+                      onTap: () {
+                        final filtersBlocState =
+                            context.read<FiltersBloc>().state;
+                        context.read<PokemonListBloc>().add(FiltersApplied(
+                            types: filtersBlocState.types,
+                            weaknesses: filtersBlocState.weaknesses,
+                            heights: filtersBlocState.heights,
+                            weights: filtersBlocState.weights));
+                        Navigator.of(context).pop();
+                      }))
             ],
           ),
         ),
