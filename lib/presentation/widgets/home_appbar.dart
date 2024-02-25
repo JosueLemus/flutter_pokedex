@@ -37,6 +37,11 @@ class HomeAppBar extends StatelessWidget {
                             context,
                             GenerationsScreen(
                               selectedGeneration: selectedGeneration,
+                              onSelect: (selected) {
+                                context.read<PokemonListBloc>().add(
+                                    SelectedGenerationUpdated(
+                                        selectedGeneration: selected));
+                              },
                             ));
                       }),
                   Padding(

@@ -5,7 +5,9 @@ import 'package:pokedex/presentation/widgets/filters_appbar.dart';
 
 class GenerationsScreen extends StatelessWidget {
   final String selectedGeneration;
-  const GenerationsScreen({super.key, required this.selectedGeneration});
+  final Function(String selected) onSelect;
+  const GenerationsScreen(
+      {super.key, required this.selectedGeneration, required this.onSelect});
 
   @override
   Widget build(BuildContext context) {
@@ -29,22 +31,30 @@ class GenerationsScreen extends StatelessWidget {
                     childAspectRatio: 1.5),
                 itemBuilder: (context, index) {
                   final bool isSelected = selectedGeneration == '${index + 1}';
-                  return Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: isSelected
-                              ? AppColors.primary
-                              : AppColors.backgroundDefaultInput),
-                      height: 10,
-                      child: Center(
-                        child: Text(
-                          'Generation ${index + 1}',
-                          style: TextStyles.description.copyWith(
-                              color: isSelected
-                                  ? AppColors.textWhite
-                                  : AppColors.textGrey),
-                        ),
-                      ));
+                  return InkWell(
+                    onTap: () {
+                      if (!isSelected) {
+                        onSelect('${index + 1}');
+                      }
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: isSelected
+                                ? AppColors.primary
+                                : AppColors.backgroundDefaultInput),
+                        height: 10,
+                        child: Center(
+                          child: Text(
+                            'Generation ${index + 1}',
+                            style: TextStyles.description.copyWith(
+                                color: isSelected
+                                    ? AppColors.textWhite
+                                    : AppColors.textGrey),
+                          ),
+                        )),
+                  );
                 }),
           ),
         )
