@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
+import 'package:pokedex/presentation/screens/filters_screen.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
@@ -23,7 +24,7 @@ class HomeAppBar extends StatelessWidget {
                   _FilterButton(
                       asset: 'assets/images/home-filters/Generation.png',
                       onTap: () {
-                        showCustomModalBottomSheet(context, Container());
+                        showCustomModalBottomSheet(context, FiltersScreen());
                       }),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -82,7 +83,6 @@ void showCustomModalBottomSheet(BuildContext context, Widget child) {
                     borderRadius: BorderRadius.circular(10))),
             const SizedBox(height: 8),
             Container(
-              height: 400,
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
