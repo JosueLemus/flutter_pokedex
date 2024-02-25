@@ -5,7 +5,9 @@ import 'package:pokedex/presentation/widgets/secondary_button.dart';
 
 class SortScreen extends StatelessWidget {
   final String selectedSort;
-  const SortScreen({super.key, required this.selectedSort});
+  final Function(String selected) onSelect;
+  const SortScreen(
+      {super.key, required this.selectedSort, required this.onSelect});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +35,17 @@ class SortScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 23, vertical: 12),
                     child: isSelected
-                        ? PrimaryButton(title: sortType, onTap: () {})
-                        : SecondaryButton(title: sortType, onTap: () {}));
+                        ? PrimaryButton(
+                            title: sortType,
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            })
+                        : SecondaryButton(
+                            title: sortType,
+                            onTap: () {
+                              onSelect(sortType);
+                              Navigator.of(context).pop();
+                            }));
               }),
         )
       ],

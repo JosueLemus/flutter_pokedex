@@ -52,6 +52,11 @@ class HomeAppBar extends StatelessWidget {
                               context,
                               SortScreen(
                                 selectedSort: selectedSort,
+                                onSelect: (selected) {
+                                  context.read<PokemonListBloc>().add(
+                                      SelectedSortUpdated(
+                                          selectedSort: selected));
+                                },
                               ));
                         }),
                   ),

@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
                 Text(value.state.weights.toString()),
                 Text(value.state.weaknesses.toString()),
                 Text(value.state.types.toString()),
+                Text(value.state.selectedSort.toString()),
               ],
             );
           })
