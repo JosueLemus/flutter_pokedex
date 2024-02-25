@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/screens/filters_screen.dart';
+import 'package:pokedex/presentation/screens/sort_screen.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
@@ -24,17 +25,27 @@ class HomeAppBar extends StatelessWidget {
                   _FilterButton(
                       asset: 'assets/images/home-filters/Generation.png',
                       onTap: () {
-                        showCustomModalBottomSheet(context, FiltersScreen());
+                        showCustomModalBottomSheet(
+                            context, const FiltersScreen());
                       }),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: _FilterButton(
                         asset: 'assets/images/home-filters/Sort.png',
-                        onTap: () {}),
+                        onTap: () {
+                          showCustomModalBottomSheet(
+                              context,
+                              const SortScreen(
+                                selectedSort: "Smallest number first",
+                              ));
+                        }),
                   ),
                   _FilterButton(
                       asset: 'assets/images/home-filters/Filter.png',
-                      onTap: () {}),
+                      onTap: () {
+                        showCustomModalBottomSheet(
+                            context, const FiltersScreen());
+                      }),
                 ],
               ),
               const SizedBox(
