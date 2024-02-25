@@ -65,6 +65,7 @@ class HomeAppBar extends StatelessWidget {
 
 void showCustomModalBottomSheet(BuildContext context, Widget child) {
   showModalBottomSheet(
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
@@ -83,6 +84,7 @@ void showCustomModalBottomSheet(BuildContext context, Widget child) {
                     borderRadius: BorderRadius.circular(10))),
             const SizedBox(height: 8),
             Container(
+              // height: 1000,
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),

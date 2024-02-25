@@ -65,6 +65,7 @@ flutter:
     - assets/images/home-filters/
     - assets/images/pokemon-types/
     - assets/images/pokemon-heights/
+    - assets/images/pokemon-weights/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -29,4 +29,18 @@ class FiltersContants {
     FilterType(type: 'bug', asset: 'assets/images/pokemon-types/bug.png'),
     FilterType(type: 'water', asset: 'assets/images/pokemon-types/water.png'),
   ];
+
+  static List<FilterType> pokemonHeights = [
+    FilterType(type: 'short', asset: 'assets/images/pokemon-heights/short.png'),
+    FilterType(
+        type: 'medium', asset: 'assets/images/pokemon-heights/medium.png'),
+    FilterType(type: 'tall', asset: 'assets/images/pokemon-heights/tall.png'),
+  ];
+
+  static List<FilterType> pokemonWeights = [
+    FilterType(type: 'light', asset: 'assets/images/pokemon-weights/light.png'),
+    FilterType(
+        type: 'normal', asset: 'assets/images/pokemon-weights/normal.png'),
+    FilterType(type: 'heavy', asset: 'assets/images/pokemon-weights/heavy.png'),
+  ];
 }
