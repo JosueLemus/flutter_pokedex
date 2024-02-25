@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
+import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
 import 'package:pokedex/presentation/screens/filters_screen.dart';
 import 'package:pokedex/presentation/screens/generations_screen.dart';
 import 'package:pokedex/presentation/screens/sort_screen.dart';
@@ -26,10 +28,14 @@ class HomeAppBar extends StatelessWidget {
                   _FilterButton(
                       asset: 'assets/images/home-filters/Generation.png',
                       onTap: () {
+                        final selectedGeneration = context
+                            .read<PokemonListBloc>()
+                            .state
+                            .selectedGeneration;
                         showCustomModalBottomSheet(
                             context,
-                            const GenerationsScreen(
-                              selectedGeneration: '1',
+                            GenerationsScreen(
+                              selectedGeneration: selectedGeneration,
                             ));
                       }),
                   Padding(
@@ -37,18 +43,28 @@ class HomeAppBar extends StatelessWidget {
                     child: _FilterButton(
                         asset: 'assets/images/home-filters/Sort.png',
                         onTap: () {
+                          final selectedSort = context
+                              .read<PokemonListBloc>()
+                              .state
+                              .selectedSort;
                           showCustomModalBottomSheet(
                               context,
-                              const SortScreen(
-                                selectedSort: "Smallest number first",
+                              SortScreen(
+                                selectedSort: selectedSort,
                               ));
                         }),
                   ),
                   _FilterButton(
                       asset: 'assets/images/home-filters/Filter.png',
                       onTap: () {
+                        final blocState = context.read<PokemonListBloc>().state;
                         showCustomModalBottomSheet(
-                            context, const FiltersScreen());
+                            context,
+                            FiltersScreen(
+                                selectedTypes: blocState.types,
+                                selectedWeaknesses: blocState.weaknesses,
+                                selectedHeights: blocState.heights,
+                                selectedWeights: blocState.weights));
                       }),
                 ],
               ),

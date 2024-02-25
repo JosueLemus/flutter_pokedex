@@ -6,7 +6,16 @@ import 'package:pokedex/presentation/widgets/primary_button.dart';
 import 'package:pokedex/presentation/widgets/secondary_button.dart';
 
 class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({super.key});
+  final List<String> selectedTypes;
+  final List<String> selectedWeaknesses;
+  final List<String> selectedHeights;
+  final List<String> selectedWeights;
+  const FiltersScreen(
+      {super.key,
+      required this.selectedTypes,
+      required this.selectedWeaknesses,
+      required this.selectedHeights,
+      required this.selectedWeights});
 
   @override
   State<FiltersScreen> createState() => _FiltersScreenState();
@@ -15,8 +24,19 @@ class FiltersScreen extends StatefulWidget {
 class _FiltersScreenState extends State<FiltersScreen> {
   List<String> selectedTypes = [];
   List<String> selectedWeaknesses = [];
-  String selectedHeight = "";
-  String selectedWeight = "";
+  List<String> selectedHeights = [];
+  List<String> selectedWeights = [];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedTypes = widget.selectedTypes;
+    selectedWeaknesses = widget.selectedWeaknesses;
+    selectedHeights = widget.selectedHeights;
+    selectedWeights = widget.selectedWeights;
+    setState(() {});
+  }
+
   void onSelectType(String type) {
     if (selectedTypes.contains(type)) {
       selectedTypes.remove(type);
@@ -36,15 +56,21 @@ class _FiltersScreenState extends State<FiltersScreen> {
   }
 
   void onSelectHeight(String height) {
-    setState(() {
-      selectedHeight = height;
-    });
+    if (selectedHeights.contains(height)) {
+      selectedHeights.remove(height);
+    } else {
+      selectedHeights.add(height);
+    }
+    setState(() {});
   }
 
   void onSelectWeight(String weight) {
-    setState(() {
-      selectedWeight = weight;
-    });
+    if (selectedWeights.contains(weight)) {
+      selectedWeights.remove(weight);
+    } else {
+      selectedWeights.add(weight);
+    }
+    setState(() {});
   }
 
   @override
@@ -69,12 +95,12 @@ class _FiltersScreenState extends State<FiltersScreen> {
         SelectableItem(
             title: 'Heights',
             listOfElements: FiltersContants.pokemonHeights,
-            selectedItems: [selectedHeight],
+            selectedItems: selectedHeights,
             onSelect: onSelectHeight),
         SelectableItem(
             title: 'Weights',
             listOfElements: FiltersContants.pokemonWeights,
-            selectedItems: [selectedWeight],
+            selectedItems: selectedWeights,
             onSelect: onSelectWeight),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 16),
