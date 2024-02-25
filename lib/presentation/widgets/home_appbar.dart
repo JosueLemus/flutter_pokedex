@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
+import 'package:pokedex/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
 import 'package:pokedex/presentation/screens/filters_screen.dart';
 import 'package:pokedex/presentation/screens/generations_screen.dart';
@@ -58,13 +59,13 @@ class HomeAppBar extends StatelessWidget {
                       asset: 'assets/images/home-filters/Filter.png',
                       onTap: () {
                         final blocState = context.read<PokemonListBloc>().state;
+                        context.read<FiltersBloc>().add(AllFiltersReplaced(
+                            types: blocState.types,
+                            weaknesses: blocState.weaknesses,
+                            heights: blocState.heights,
+                            weights: blocState.weights));
                         showCustomModalBottomSheet(
-                            context,
-                            FiltersScreen(
-                                selectedTypes: blocState.types,
-                                selectedWeaknesses: blocState.weaknesses,
-                                selectedHeights: blocState.heights,
-                                selectedWeights: blocState.weights));
+                            context, const FiltersScreen());
                       }),
                 ],
               ),

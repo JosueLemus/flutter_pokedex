@@ -1,77 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/config/constants/filters_constants.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
+import 'package:pokedex/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:pokedex/presentation/widgets/filters_appbar.dart';
 import 'package:pokedex/presentation/widgets/primary_button.dart';
 import 'package:pokedex/presentation/widgets/secondary_button.dart';
 
-class FiltersScreen extends StatefulWidget {
-  final List<String> selectedTypes;
-  final List<String> selectedWeaknesses;
-  final List<String> selectedHeights;
-  final List<String> selectedWeights;
-  const FiltersScreen(
-      {super.key,
-      required this.selectedTypes,
-      required this.selectedWeaknesses,
-      required this.selectedHeights,
-      required this.selectedWeights});
-
-  @override
-  State<FiltersScreen> createState() => _FiltersScreenState();
-}
-
-class _FiltersScreenState extends State<FiltersScreen> {
-  List<String> selectedTypes = [];
-  List<String> selectedWeaknesses = [];
-  List<String> selectedHeights = [];
-  List<String> selectedWeights = [];
-
-  @override
-  void initState() {
-    super.initState();
-    selectedTypes = widget.selectedTypes;
-    selectedWeaknesses = widget.selectedWeaknesses;
-    selectedHeights = widget.selectedHeights;
-    selectedWeights = widget.selectedWeights;
-    setState(() {});
-  }
-
-  void onSelectType(String type) {
-    if (selectedTypes.contains(type)) {
-      selectedTypes.remove(type);
-    } else {
-      selectedTypes.add(type);
-    }
-    setState(() {});
-  }
-
-  void onSelectWeaknesses(String weaknesses) {
-    if (selectedWeaknesses.contains(weaknesses)) {
-      selectedWeaknesses.remove(weaknesses);
-    } else {
-      selectedWeaknesses.add(weaknesses);
-    }
-    setState(() {});
-  }
-
-  void onSelectHeight(String height) {
-    if (selectedHeights.contains(height)) {
-      selectedHeights.remove(height);
-    } else {
-      selectedHeights.add(height);
-    }
-    setState(() {});
-  }
-
-  void onSelectWeight(String weight) {
-    if (selectedWeights.contains(weight)) {
-      selectedWeights.remove(weight);
-    } else {
-      selectedWeights.add(weight);
-    }
-    setState(() {});
-  }
+class FiltersScreen extends StatelessWidget {
+  const FiltersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -82,26 +19,46 @@ class _FiltersScreenState extends State<FiltersScreen> {
             title: 'Filters',
             description:
                 'Use advanced search to explore Pokémon by type, weakness, height and more!'),
-        SelectableItem(
-            title: 'Types',
-            listOfElements: FiltersContants.pokemonTypes,
-            selectedItems: selectedTypes,
-            onSelect: onSelectType),
-        SelectableItem(
-            title: 'Weaknesses',
-            listOfElements: FiltersContants.pokemonTypes,
-            selectedItems: selectedWeaknesses,
-            onSelect: onSelectWeaknesses),
-        SelectableItem(
-            title: 'Heights',
-            listOfElements: FiltersContants.pokemonHeights,
-            selectedItems: selectedHeights,
-            onSelect: onSelectHeight),
-        SelectableItem(
-            title: 'Weights',
-            listOfElements: FiltersContants.pokemonWeights,
-            selectedItems: selectedWeights,
-            onSelect: onSelectWeight),
+        context.select((FiltersBloc value) {
+          return SelectableItem(
+              title: 'Types',
+              listOfElements: FiltersContants.pokemonTypes,
+              selectedItems: value.state.types,
+              onSelect: (value) {
+                return context.read<FiltersBloc>().add(ListUpdated(
+                    newValue: value, filterType: FiltersTypes.types));
+              });
+        }),
+        context.select((FiltersBloc value) {
+          return SelectableItem(
+              title: 'Weaknesses',
+              listOfElements: FiltersContants.pokemonTypes,
+              selectedItems: value.state.weaknesses,
+              onSelect: (value) {
+                return context.read<FiltersBloc>().add(ListUpdated(
+                    newValue: value, filterType: FiltersTypes.weaknesses));
+              });
+        }),
+        context.select((FiltersBloc value) {
+          return SelectableItem(
+              title: 'Heights',
+              listOfElements: FiltersContants.pokemonHeights,
+              selectedItems: value.state.heights,
+              onSelect: (value) {
+                return context.read<FiltersBloc>().add(ListUpdated(
+                    newValue: value, filterType: FiltersTypes.heights));
+              });
+        }),
+        context.select((FiltersBloc value) {
+          return SelectableItem(
+              title: 'Weights',
+              listOfElements: FiltersContants.pokemonWeights,
+              selectedItems: value.state.weights,
+              onSelect: (value) {
+                return context.read<FiltersBloc>().add(ListUpdated(
+                    newValue: value, filterType: FiltersTypes.weights));
+              });
+        }),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 16),
           child: Row(
