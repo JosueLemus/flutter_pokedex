@@ -12,17 +12,20 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           const HomeAppBar(),
-          context.select((PokemonListBloc value) {
-            return Column(
-              children: [
-                Text(value.state.heights.toString()),
-                Text(value.state.weights.toString()),
-                Text(value.state.weaknesses.toString()),
-                Text(value.state.types.toString()),
-                Text(value.state.selectedSort.toString()),
-              ],
-            );
-          })
+          Expanded(
+            child: context.select((PokemonListBloc value) {
+              final pokemonList = value.state.pokemonList;
+              return ListView.builder(
+                  itemCount: pokemonList.length,
+                  itemBuilder: (context, index) {
+                    final pokemon = pokemonList[index];
+                    return ListTile(
+                      title: Text(pokemon.name),
+                      subtitle: Text(pokemon.pokemonTypes[0]),
+                    );
+                  });
+            }),
+          )
         ],
       ),
     );
