@@ -55,7 +55,8 @@ class PokemonListState extends Equatable {
         heights,
         weights,
         pokemonList,
-        textToSearch
+        textToSearch,
+        selectedGeneration
       ];
 }
 

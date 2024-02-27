@@ -21,7 +21,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
           2000,
           "",
           "",
-          "");
+          state.selectedGeneration);
 
       emit(state.copyWith(pokemonList: pokemonList));
     });
@@ -34,6 +34,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
 
     on<SelectedGenerationUpdated>((event, emit) {
       emit(state.copyWith(selectedGeneration: event.selectedGeneration));
+      add(GetPokemonList());
     });
     on<SelectedSortUpdated>((event, emit) {
       emit(state.copyWith(selectedSort: event.selectedSort));

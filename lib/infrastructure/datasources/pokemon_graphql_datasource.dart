@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:pokedex/config/helpers/pokemon_generations_helper.dart';
 import 'package:pokedex/domain/datasources/pokemon_datasources.dart';
 import 'package:pokedex/domain/entities/pokemon.dart';
 import 'package:http/http.dart' as http;
@@ -20,6 +21,13 @@ class PokemonGraphQlDatasource extends PokemonDatasources {
       String sortType,
       String generation) async {
     var url = Uri.https(urlbase, 'graphql/v1beta');
+    var queryGeneration = "";
+    if (generation.isNotEmpty) {
+      Map<String, int> limits = getIDLimitsByGeneration(int.parse(generation));
+      queryGeneration =
+          'pokemon_species_id: {_gt: ${limits['from']}, _lt: ${limits['to']}}';
+    }
+
     final Map<String, dynamic> requestBody = {
       'query': '''
       query samplePokeAPIquery {
@@ -31,12 +39,12 @@ class PokemonGraphQlDatasource extends PokemonDatasources {
             weight: {_lt: 2000, _gt: 1},
             pokemon_v2_pokemontypes: {
               pokemon_v2_type: {
-                name: {_regex: ""},
-                generation_id: {_eq: 1}
+                name: {_regex: ""}
               }
             },
             id: {_gt: 0, _lt: 1000},
-            name: {_regex: "$textToSearch"}
+            name: {_regex: "$textToSearch"},
+            $queryGeneration
           },
           order_by: {name: asc, id: asc}
         ) {
