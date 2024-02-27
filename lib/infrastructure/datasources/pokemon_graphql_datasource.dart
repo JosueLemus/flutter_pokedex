@@ -28,6 +28,23 @@ class PokemonGraphQlDatasource extends PokemonDatasources {
           'pokemon_species_id: {_gt: ${limits['from']}, _lt: ${limits['to']}}';
     }
 
+    var querySort = "";
+    switch (sortType) {
+      case "Smallest number first":
+        querySort = 'order_by: {id: asc}';
+        break;
+      case "Highest number first":
+        querySort = 'order_by: {id: desc}';
+      case "A-Z":
+        querySort = "order_by: {name: asc}";
+        break;
+      case "Z-A":
+        querySort = "order_by: {name: desc}";
+        break;
+      default:
+        querySort = 'order_by: {id: asc}';
+    }
+
     final Map<String, dynamic> requestBody = {
       'query': '''
       query samplePokeAPIquery {
@@ -46,7 +63,7 @@ class PokemonGraphQlDatasource extends PokemonDatasources {
             name: {_regex: "$textToSearch"},
             $queryGeneration
           },
-          order_by: {name: asc, id: asc}
+          $querySort
         ) {
           id
           name
