@@ -7,10 +7,7 @@ sealed class PokemonListEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetPokemonList extends PokemonListEvent {
-  final int page;
-  const GetPokemonList({required this.page});
-}
+class GetPokemonList extends PokemonListEvent {}
 
 class SelectedGenerationUpdated extends PokemonListEvent {
   final String selectedGeneration;

@@ -13,7 +13,7 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final debouncer = Debouncer(milliseconds: 2000);
+    final debouncer = Debouncer(milliseconds: 700);
     return Stack(
       children: [
         Image.asset(

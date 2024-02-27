@@ -10,7 +10,6 @@ part 'pokemon_list_state.dart';
 class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
   PokemonListBloc() : super(PokemonListInitial()) {
     on<GetPokemonList>((event, emit) async {
-      print("hola :v");
       final repository = PokemonRepositoryImplementation(
           datasource: PokemonGraphQlDatasource());
       final pokemonList = await repository.getPokemonList(
@@ -26,10 +25,11 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
 
       emit(state.copyWith(pokemonList: pokemonList));
     });
-    add(GetPokemonList(page: 1));
+    add(GetPokemonList());
 
-    on<SearchPokemon>((event, emit) {
-      print(event.textToSearch);
+    on<SearchPokemon>((event, emit) async {
+      emit(state.copyWith(textToSearch: event.textToSearch));
+      add(GetPokemonList());
     });
 
     on<SelectedGenerationUpdated>((event, emit) {

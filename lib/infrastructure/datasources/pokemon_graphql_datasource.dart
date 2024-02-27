@@ -36,7 +36,7 @@ class PokemonGraphQlDatasource extends PokemonDatasources {
               }
             },
             id: {_gt: 0, _lt: 1000},
-            name: {_regex: ""}
+            name: {_regex: "$textToSearch"}
           },
           order_by: {name: asc, id: asc}
         ) {

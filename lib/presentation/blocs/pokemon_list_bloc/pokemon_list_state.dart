@@ -47,8 +47,16 @@ class PokemonListState extends Equatable {
       );
 
   @override
-  List<Object> get props =>
-      [selectedGeneration, selectedSort, types, weaknesses, heights, weights];
+  List<Object> get props => [
+        selectedGeneration,
+        selectedSort,
+        types,
+        weaknesses,
+        heights,
+        weights,
+        pokemonList,
+        textToSearch
+      ];
 }
 
 final class PokemonListInitial extends PokemonListState {}
