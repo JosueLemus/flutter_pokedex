@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/config/theme/app_colors.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
@@ -21,15 +22,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+            primaryColor: AppColors.primary,
+            hintColor: AppColors.textGrey,
+            progressIndicatorTheme:
+                const ProgressIndicatorThemeData(color: AppColors.primary),
             inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyles.description,
-          fillColor: const Color(0xFFF2F2F2),
-          filled: true,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide.none,
-          ),
-        )),
+              hintStyle: TextStyles.description,
+              fillColor: AppColors.backgroundDefaultInput,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: BorderSide.none,
+              ),
+            )),
         home: const HomeScreen());
   }
 }

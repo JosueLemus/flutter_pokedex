@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/config/theme/app_colors.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
 import 'package:pokedex/presentation/widgets/home_appbar.dart';
 
@@ -60,10 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
                 return RefreshIndicator(
+                  color: AppColors.primary,
                   onRefresh: () async {
                     _pokemonListBloc.add(ReloadData());
                   },
                   child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       controller: _scrollController,
                       itemCount: state.isLoading
                           ? pokemonList.length + 1
