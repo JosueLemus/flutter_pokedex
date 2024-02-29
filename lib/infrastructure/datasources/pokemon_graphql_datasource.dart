@@ -50,7 +50,7 @@ class PokemonGraphQlDatasource extends PokemonDatasources {
       query samplePokeAPIquery {
         pokemon_v2_pokemon(
           limit: 10,
-          offset: 0,
+          offset: $offset,
           where: {
             height: {_lt: 2000, _gt: 1},
             weight: {_lt: 2000, _gt: 1},

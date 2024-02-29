@@ -10,6 +10,7 @@ class PokemonListState extends Equatable {
   final List<Pokemon> pokemonList;
   final int currentPage;
   final String textToSearch;
+  final bool isLoading;
 
   const PokemonListState({
     this.selectedGeneration = "",
@@ -21,6 +22,7 @@ class PokemonListState extends Equatable {
     this.pokemonList = const [],
     this.currentPage = 0,
     this.textToSearch = "",
+    this.isLoading = false,
   });
 
   PokemonListState copyWith({
@@ -33,6 +35,7 @@ class PokemonListState extends Equatable {
     List<Pokemon>? pokemonList,
     int? currentPage,
     String? textToSearch,
+    bool? isLoading,
   }) =>
       PokemonListState(
         selectedGeneration: selectedGeneration ?? this.selectedGeneration,
@@ -44,6 +47,7 @@ class PokemonListState extends Equatable {
         pokemonList: pokemonList ?? this.pokemonList,
         currentPage: currentPage ?? this.currentPage,
         textToSearch: textToSearch ?? this.textToSearch,
+        isLoading: isLoading ?? this.isLoading,
       );
 
   @override
@@ -56,7 +60,8 @@ class PokemonListState extends Equatable {
         weights,
         pokemonList,
         textToSearch,
-        selectedGeneration
+        selectedGeneration,
+        isLoading,
       ];
 }
 

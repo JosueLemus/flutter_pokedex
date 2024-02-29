@@ -10,6 +10,11 @@ part 'pokemon_list_state.dart';
 class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
   PokemonListBloc() : super(PokemonListInitial()) {
     on<GetPokemonList>((event, emit) async {
+      if (state.isLoading) return;
+      print("obteniendo");
+      emit(state.copyWith(isLoading: true));
+      print(state.isLoading);
+      await Future.delayed(Duration(seconds: 2));
       final repository = PokemonRepositoryImplementation(
           datasource: PokemonGraphQlDatasource());
       final pokemonList = await repository.getPokemonList(
@@ -23,7 +28,9 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
           state.selectedSort,
           state.selectedGeneration);
 
-      emit(state.copyWith(pokemonList: pokemonList));
+      emit(state.copyWith(
+          pokemonList: [...state.pokemonList, ...pokemonList],
+          isLoading: false));
     });
     add(GetPokemonList());
 
