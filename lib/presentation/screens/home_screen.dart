@@ -19,15 +19,20 @@ class HomeScreen extends StatelessWidget {
               },
               builder: (context, state) {
                 final pokemonList = state.pokemonList;
-                return ListView.builder(
-                    itemCount: pokemonList.length,
-                    itemBuilder: (context, index) {
-                      final pokemon = pokemonList[index];
-                      return ListTile(
-                        title: Text(pokemon.name),
-                        subtitle: Text(pokemon.pokemonTypes[0]),
-                      );
-                    });
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<PokemonListBloc>().add(ReloadData());
+                  },
+                  child: ListView.builder(
+                      itemCount: pokemonList.length,
+                      itemBuilder: (context, index) {
+                        final pokemon = pokemonList[index];
+                        return ListTile(
+                          title: Text(pokemon.name),
+                          subtitle: Text(pokemon.pokemonTypes[0]),
+                        );
+                      }),
+                );
               },
             ),
           )

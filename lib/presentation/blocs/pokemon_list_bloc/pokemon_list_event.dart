@@ -24,6 +24,8 @@ class SearchPokemon extends PokemonListEvent {
   const SearchPokemon({required this.textToSearch});
 }
 
+class ReloadData extends PokemonListEvent {}
+
 class FiltersApplied extends PokemonListEvent {
   final List<String> types;
   final List<String> weaknesses;

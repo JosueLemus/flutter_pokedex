@@ -27,6 +27,11 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     });
     add(GetPokemonList());
 
+    on<ReloadData>((event, emit) async {
+      emit(state.copyWith(pokemonList: []));
+      add(GetPokemonList());
+    });
+
     on<SearchPokemon>((event, emit) async {
       emit(state.copyWith(textToSearch: event.textToSearch));
       add(GetPokemonList());
