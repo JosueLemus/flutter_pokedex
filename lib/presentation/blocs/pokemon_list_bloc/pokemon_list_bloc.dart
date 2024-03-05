@@ -32,22 +32,28 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     add(GetPokemonList());
 
     on<ReloadData>((event, emit) async {
-      emit(state.copyWith(pokemonList: []));
-      add(GetPokemonList());
+      if (state.isLoading) return;
+      emit(state.copyWith(isLoading: true));
+      final repository = PokemonRepositoryImplementation(
+          datasource: PokemonGraphQlDatasource());
+      final pokemonList = await repository.getPokemonList(0, state.textToSearch,
+          1, 2000, 1, 2000, "", state.selectedSort, state.selectedGeneration);
+
+      emit(state.copyWith(pokemonList: pokemonList, isLoading: false));
     });
 
     on<SearchPokemon>((event, emit) async {
       emit(state.copyWith(textToSearch: event.textToSearch));
-      add(GetPokemonList());
+      add(ReloadData());
     });
 
     on<SelectedGenerationUpdated>((event, emit) {
       emit(state.copyWith(selectedGeneration: event.selectedGeneration));
-      add(GetPokemonList());
+      add(ReloadData());
     });
     on<SelectedSortUpdated>((event, emit) {
       emit(state.copyWith(selectedSort: event.selectedSort));
-      add(GetPokemonList());
+      add(ReloadData());
     });
     on<FiltersApplied>((event, emit) {
       emit(state.copyWith(

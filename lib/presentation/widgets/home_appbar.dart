@@ -107,6 +107,7 @@ class HomeAppBar extends StatelessWidget {
               ),
               TextField(
                 onChanged: (value) {
+                  print(value);
                   debouncer.run(() {
                     context
                         .read<PokemonListBloc>()
