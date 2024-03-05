@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/config/helpers/number_formatter.dart';
 import 'package:pokedex/config/helpers/string_helpers.dart';
+import 'package:pokedex/config/theme/pokemon_colors.dart';
+import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/domain/entities/pokemon.dart';
 
 class PokemonCard extends StatelessWidget {
@@ -9,7 +11,8 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokemonCardColor = Colors.red;
+    final pokemonCardColor =
+        PokemonColors.getBackgroundTypeColor(pokemon.pokemonTypes[0]);
     String imageUrl = StringHelpers.getPokemonImageUrl(pokemon.id);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 4),
@@ -17,8 +20,8 @@ class PokemonCard extends StatelessWidget {
         height: 150,
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-              color: pokemonCardColor.withOpacity(0.1),
-              offset: const Offset(0, 150 - 115),
+              color: pokemonCardColor.withOpacity(0.2),
+              offset: const Offset(0, 40),
               blurRadius: 20)
         ]),
         child: Stack(
@@ -82,19 +85,31 @@ class PokemonDetail extends StatelessWidget {
                 itemCount: pokemon.pokemonTypes.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
+                  final pokemonType = pokemon.pokemonTypes[index];
                   return Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Container(
                       color: Colors.purple,
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 15,
-                            height: 15,
-                            color: Colors.green,
-                          ),
-                          Text(pokemon.pokemonTypes[index])
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/pokemon-types/$pokemonType.png',
+                              width: 15,
+                              height: 15,
+                              color: Colors.white,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              StringHelpers.capitalize(pokemonType),
+                              style: TextStyles.pokemonType
+                                  .copyWith(color: Colors.white),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   );
