@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
       body: Center(
         child: SpinPerfect(
           onFinish: (direction) {
-            context.go('/home');
+            context.pushReplacement('/home');
           },
           child: Image.asset(
             'assets/images/pokeball.png',
