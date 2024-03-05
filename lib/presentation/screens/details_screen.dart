@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key});
+class DetailsScreen extends StatelessWidget {
+  final String pokemonId;
+  const DetailsScreen({super.key, required this.pokemonId});
 
-  @override
-  State<DetailsScreen> createState() => _DetailsScreenState();
-}
-
-class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Container(
+        child: Center(
+          child: Text(pokemonId),
+        ),
+      ),
     );
   }
 }

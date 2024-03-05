@@ -21,9 +21,11 @@ final GoRouter router = GoRouter(
       ],
     ),
     GoRoute(
-      path: '/details',
+      path: '/details/:pokemonid',
+      name: 'details',
       builder: (BuildContext context, GoRouterState state) {
-        return const DetailsScreen();
+        return DetailsScreen(
+            pokemonId: state.pathParameters['pokemonid'] ?? '');
       },
     )
   ],

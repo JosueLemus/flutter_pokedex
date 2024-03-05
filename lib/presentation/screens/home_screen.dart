@@ -86,8 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           title: Text(pokemon.name),
                           subtitle: Text(pokemon.id.toString()),
                           onTap: () {
-                            print("object");
-                            context.go('/details');
+                            context.goNamed('details', pathParameters: {
+                              'pokemonid': pokemon.id.toString()
+                            });
                           },
                         );
                       }),
