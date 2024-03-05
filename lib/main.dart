@@ -5,6 +5,7 @@ import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
 import 'package:pokedex/presentation/screens/home_screen.dart';
+import 'package:pokedex/presentation/screens/splash_screen.dart';
 
 void main() => runApp(MultiBlocProvider(
       providers: [
@@ -35,6 +36,6 @@ class MyApp extends StatelessWidget {
                 borderSide: BorderSide.none,
               ),
             )),
-        home: const HomeScreen());
+        home: const SplashScreen());
   }
 }

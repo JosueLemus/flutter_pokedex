@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
-    return maxScroll - currentScroll <= 200.0;
+    return maxScroll - currentScroll <= 10;
   }
 
   @override
@@ -74,13 +74,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         if (state.isLoading && index == pokemonList.length) {
                           return const Center(
-                            child: CircularProgressIndicator(),
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: 32),
+                              child: CircularProgressIndicator(),
+                            ),
                           );
                         }
                         final pokemon = pokemonList[index];
                         return ListTile(
                           title: Text(pokemon.name),
                           subtitle: Text(pokemon.id.toString()),
+                          onTap: () {
+                            print("object");
+                          },
                         );
                       }),
                 );

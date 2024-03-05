@@ -11,10 +11,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
   PokemonListBloc() : super(PokemonListInitial()) {
     on<GetPokemonList>((event, emit) async {
       if (state.isLoading) return;
-      print("obteniendo");
       emit(state.copyWith(isLoading: true));
-      print(state.isLoading);
-      await Future.delayed(Duration(seconds: 2));
       final repository = PokemonRepositoryImplementation(
           datasource: PokemonGraphQlDatasource());
       final pokemonList = await repository.getPokemonList(
