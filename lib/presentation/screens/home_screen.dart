@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pokedex/config/theme/app_colors.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
 import 'package:pokedex/presentation/widgets/home_appbar.dart';
@@ -86,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           subtitle: Text(pokemon.id.toString()),
                           onTap: () {
                             print("object");
+                            context.go('/details');
                           },
                         );
                       }),
