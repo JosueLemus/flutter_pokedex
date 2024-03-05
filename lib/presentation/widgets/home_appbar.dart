@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/config/helpers/debounce_helper.dart';
+import 'package:pokedex/config/theme/app_colors.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
@@ -16,9 +17,20 @@ class HomeAppBar extends StatelessWidget {
     final debouncer = Debouncer(milliseconds: 700);
     return Stack(
       children: [
-        Image.asset(
-          "assets/images/gradient-pokeball.png",
-          color: const Color(0xFFB5B9C4).withOpacity(0.05),
+        ShaderMask(
+          blendMode: BlendMode.srcATop,
+          shaderCallback: (Rect bounds) {
+            return LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: Theme.of(context).brightness == Brightness.light
+                  ? AppColors.pokeballGradientLightHome
+                  : AppColors.pokeballGradientDarkHome,
+            ).createShader(bounds);
+          },
+          child: Image.asset(
+            "assets/images/gradient-pokeball.png",
+          ),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(30, 60, 30, 23),
@@ -156,6 +168,9 @@ class _FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).brightness == Brightness.light
+        ? AppColors.textBlack
+        : AppColors.darkThemeIconColor;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(4),
@@ -165,6 +180,7 @@ class _FilterButton extends StatelessWidget {
           asset,
           width: 25,
           height: 25,
+          color: color,
         ),
       ),
     );
