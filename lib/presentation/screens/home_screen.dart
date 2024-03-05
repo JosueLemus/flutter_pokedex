@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pokedex/config/theme/app_colors.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
 import 'package:pokedex/presentation/widgets/home_appbar.dart';
+import 'package:pokedex/presentation/widgets/pokemon_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     _pokemonListBloc.add(ReloadData());
                   },
                   child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
                       controller: _scrollController,
                       itemCount: state.isLoading
                           ? pokemonList.length + 1
@@ -82,15 +83,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         }
                         final pokemon = pokemonList[index];
-                        return ListTile(
-                          title: Text(pokemon.name),
-                          subtitle: Text(pokemon.id.toString()),
-                          onTap: () {
-                            context.pushNamed('details', pathParameters: {
-                              'pokemonid': pokemon.id.toString()
-                            });
-                          },
-                        );
+                        return PokemonCard(pokemon: pokemon);
+
+                        // ListTile(
+                        //   title: Text(pokemon.name),
+                        //   subtitle: Text(pokemon.id.toString()),
+                        //   onTap: () {
+                        //     context.pushNamed('details', pathParameters: {
+                        //       'pokemonid': pokemon.id.toString()
+                        //     });
+                        //   },
+                        // );
                       }),
                 );
               },
