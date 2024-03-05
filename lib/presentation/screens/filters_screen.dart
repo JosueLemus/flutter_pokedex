@@ -68,8 +68,9 @@ class FiltersScreen extends StatelessWidget {
             getColor: PokemonColors.getWeightColor,
           );
         }),
+        const RangeSliderWidget(),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 16),
+          padding: const EdgeInsets.all(23),
           child: Row(
             children: [
               Expanded(child: SecondaryButton(title: 'Reset', onTap: () {})),
@@ -169,6 +170,54 @@ class SelectableItem extends StatelessWidget {
                   ),
                 );
               }),
+        ),
+      ],
+    );
+  }
+}
+
+class RangeSliderWidget extends StatefulWidget {
+  const RangeSliderWidget({super.key});
+
+  @override
+  RangeSliderWidgetState createState() => RangeSliderWidgetState();
+}
+
+class RangeSliderWidgetState extends State<RangeSliderWidget> {
+  static const int minValue = 0;
+  static const int maxValue = 1000;
+  static const int divisions = 100;
+  RangeValues _values = const RangeValues(250, 750);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 23),
+          child: Text(
+            'Number Range',
+            style: TextStyles.filterTitle,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4),
+          child: RangeSlider(
+            values: _values,
+            min: minValue.toDouble(),
+            max: maxValue.toDouble(),
+            divisions: divisions,
+            onChanged: (RangeValues newValues) {
+              setState(() {
+                _values = newValues;
+              });
+            },
+            labels: RangeLabels(
+              _values.start.round().toString(),
+              _values.end.round().toString(),
+            ),
+          ),
         ),
       ],
     );

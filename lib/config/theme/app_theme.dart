@@ -21,6 +21,10 @@ class AppTheme {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide.none,
           ),
+        ),
+        sliderTheme: const SliderThemeData(
+          activeTrackColor: AppColors.primary,
+          thumbColor: AppColors.primary,
         ));
   }
 }
