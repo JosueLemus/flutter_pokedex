@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/config/helpers/number_formatter.dart';
+import 'package:pokedex/config/helpers/string_helpers.dart';
 import 'package:pokedex/domain/entities/pokemon.dart';
 
 class PokemonCard extends StatelessWidget {
@@ -9,6 +10,7 @@ class PokemonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pokemonCardColor = Colors.red;
+    String imageUrl = StringHelpers.getPokemonImageUrl(pokemon.id);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 4),
       child: Container(
@@ -47,7 +49,7 @@ class PokemonCard extends StatelessWidget {
             Positioned(
                 right: 0,
                 child: Image.network(
-                  'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${NumberFormatter.formatNumber(pokemon.id)}.png',
+                  imageUrl,
                   width: 150,
                   height: 150,
                   fit: BoxFit.cover,
