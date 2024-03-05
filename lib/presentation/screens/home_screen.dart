@@ -83,17 +83,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         }
                         final pokemon = pokemonList[index];
-                        return PokemonCard(pokemon: pokemon);
-
-                        // ListTile(
-                        //   title: Text(pokemon.name),
-                        //   subtitle: Text(pokemon.id.toString()),
-                        //   onTap: () {
-                        //     context.pushNamed('details', pathParameters: {
-                        //       'pokemonid': pokemon.id.toString()
-                        //     });
-                        //   },
-                        // );
+                        return GestureDetector(
+                            onTap: () {
+                              context.pushNamed('details', pathParameters: {
+                                'pokemonid': pokemon.id.toString()
+                              });
+                            },
+                            child: PokemonCard(pokemon: pokemon));
                       }),
                 );
               },
