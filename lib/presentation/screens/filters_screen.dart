@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/config/constants/filters_constants.dart';
+import 'package:pokedex/config/theme/pokemon_colors.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
@@ -28,37 +29,44 @@ class FiltersScreen extends StatelessWidget {
               onSelect: (value) {
                 return context.read<FiltersBloc>().add(ListUpdated(
                     newValue: value, filterType: FiltersTypes.types));
-              });
+              },
+              getColor: PokemonColors.getTypeColor);
         }),
         context.select((FiltersBloc value) {
           return SelectableItem(
-              title: 'Weaknesses',
-              listOfElements: FiltersContants.pokemonTypes,
-              selectedItems: value.state.weaknesses,
-              onSelect: (value) {
-                return context.read<FiltersBloc>().add(ListUpdated(
-                    newValue: value, filterType: FiltersTypes.weaknesses));
-              });
+            title: 'Weaknesses',
+            listOfElements: FiltersContants.pokemonTypes,
+            selectedItems: value.state.weaknesses,
+            onSelect: (value) {
+              return context.read<FiltersBloc>().add(ListUpdated(
+                  newValue: value, filterType: FiltersTypes.weaknesses));
+            },
+            getColor: PokemonColors.getTypeColor,
+          );
         }),
         context.select((FiltersBloc value) {
           return SelectableItem(
-              title: 'Heights',
-              listOfElements: FiltersContants.pokemonHeights,
-              selectedItems: value.state.heights,
-              onSelect: (value) {
-                return context.read<FiltersBloc>().add(ListUpdated(
-                    newValue: value, filterType: FiltersTypes.heights));
-              });
+            title: 'Heights',
+            listOfElements: FiltersContants.pokemonHeights,
+            selectedItems: value.state.heights,
+            onSelect: (value) {
+              return context.read<FiltersBloc>().add(ListUpdated(
+                  newValue: value, filterType: FiltersTypes.heights));
+            },
+            getColor: PokemonColors.getHeightColor,
+          );
         }),
         context.select((FiltersBloc value) {
           return SelectableItem(
-              title: 'Weights',
-              listOfElements: FiltersContants.pokemonWeights,
-              selectedItems: value.state.weights,
-              onSelect: (value) {
-                return context.read<FiltersBloc>().add(ListUpdated(
-                    newValue: value, filterType: FiltersTypes.weights));
-              });
+            title: 'Weights',
+            listOfElements: FiltersContants.pokemonWeights,
+            selectedItems: value.state.weights,
+            onSelect: (value) {
+              return context.read<FiltersBloc>().add(ListUpdated(
+                  newValue: value, filterType: FiltersTypes.weights));
+            },
+            getColor: PokemonColors.getWeightColor,
+          );
         }),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 16),
@@ -97,12 +105,14 @@ class SelectableItem extends StatelessWidget {
   final List<FilterType> listOfElements;
   final List<String> selectedItems;
   final Function(String selected) onSelect;
+  final Color Function(String type) getColor;
   const SelectableItem(
       {super.key,
       required this.listOfElements,
       required this.selectedItems,
       required this.onSelect,
-      required this.title});
+      required this.title,
+      required this.getColor});
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +135,7 @@ class SelectableItem extends StatelessWidget {
               itemBuilder: (context, index) {
                 final isSelected =
                     selectedItems.contains(listOfElements[index].type);
+                final selectedColor = getColor(listOfElements[index].type);
                 return Padding(
                   padding: const EdgeInsets.only(right: 8, bottom: 24, top: 8),
                   child: InkWell(
@@ -135,22 +146,23 @@ class SelectableItem extends StatelessWidget {
                       decoration: BoxDecoration(
                           boxShadow: isSelected
                               ? [
-                                  const BoxShadow(
-                                      color: Colors.red,
+                                  BoxShadow(
+                                      color: selectedColor,
                                       blurRadius: 15,
                                       spreadRadius: 0,
                                       blurStyle: BlurStyle.inner,
-                                      offset: Offset(0, 5))
+                                      offset: const Offset(0, 5))
                                 ]
                               : [],
                           borderRadius: BorderRadius.circular(25),
-                          color: isSelected ? Colors.red : Colors.transparent),
+                          color:
+                              isSelected ? selectedColor : Colors.transparent),
                       child: Center(
                         child: Image.asset(
                           listOfElements[index].asset,
                           width: 25,
                           height: 25,
-                          color: isSelected ? Colors.white : Colors.black,
+                          color: isSelected ? Colors.white : selectedColor,
                         ),
                       ),
                     ),

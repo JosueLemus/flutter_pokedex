@@ -56,4 +56,30 @@ class PokemonColors {
     return hexToColor(backgroundTypeColor[type.toLowerCase()] ??
         'E0E0E0'); // Default to light gray if the type is not found
   }
+
+  static Color getHeightColor(String height) {
+    switch (height) {
+      case 'short':
+        return const Color(0xFFFFC5E6);
+      case 'medium':
+        return const Color(0xFFAEBFD7);
+      case 'tall':
+        return const Color(0xFFAAACB8);
+      default:
+        return const Color(0xFFE0E0E0);
+    }
+  }
+
+  static Color getWeightColor(String weight) {
+    switch (weight) {
+      case 'light':
+        return const Color(0xFF99CD7C);
+      case 'normal':
+        return const Color(0xFF57B2DC);
+      case 'heavy':
+        return const Color(0xFF5A92A5);
+      default:
+        return const Color(0xFFE0E0E0);
+    }
+  }
 }

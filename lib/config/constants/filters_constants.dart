@@ -7,6 +7,7 @@ class FilterType {
 
 class FiltersContants {
   static List<FilterType> pokemonTypes = [
+    FilterType(type: 'bug', asset: 'assets/images/pokemon-types/bug.png'),
     FilterType(type: 'dark', asset: 'assets/images/pokemon-types/dark.png'),
     FilterType(type: 'dragon', asset: 'assets/images/pokemon-types/dragon.png'),
     FilterType(
@@ -26,7 +27,6 @@ class FiltersContants {
         type: 'psychic', asset: 'assets/images/pokemon-types/psychic.png'),
     FilterType(type: 'rock', asset: 'assets/images/pokemon-types/rock.png'),
     FilterType(type: 'steel', asset: 'assets/images/pokemon-types/steel.png'),
-    FilterType(type: 'bug', asset: 'assets/images/pokemon-types/bug.png'),
     FilterType(type: 'water', asset: 'assets/images/pokemon-types/water.png'),
   ];
 
