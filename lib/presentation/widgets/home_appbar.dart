@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/config/helpers/debounce_helper.dart';
@@ -17,19 +18,21 @@ class HomeAppBar extends StatelessWidget {
     final debouncer = Debouncer(milliseconds: 700);
     return Stack(
       children: [
-        ShaderMask(
-          blendMode: BlendMode.srcATop,
-          shaderCallback: (Rect bounds) {
-            return LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: Theme.of(context).brightness == Brightness.light
-                  ? AppColors.pokeballGradientLightHome
-                  : AppColors.pokeballGradientDarkHome,
-            ).createShader(bounds);
-          },
-          child: Image.asset(
-            "assets/images/gradient-pokeball.png",
+        BounceInUp(
+          child: ShaderMask(
+            blendMode: BlendMode.srcATop,
+            shaderCallback: (Rect bounds) {
+              return LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: Theme.of(context).brightness == Brightness.light
+                    ? AppColors.pokeballGradientLightHome
+                    : AppColors.pokeballGradientDarkHome,
+              ).createShader(bounds);
+            },
+            child: Image.asset(
+              "assets/images/gradient-pokeball.png",
+            ),
           ),
         ),
         Padding(
@@ -107,7 +110,6 @@ class HomeAppBar extends StatelessWidget {
               ),
               TextField(
                 onChanged: (value) {
-                  print(value);
                   debouncer.run(() {
                     context
                         .read<PokemonListBloc>()
