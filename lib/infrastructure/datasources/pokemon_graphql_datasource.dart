@@ -8,7 +8,8 @@ import 'package:pokedex/infrastructure/mappers/pokemon_mapper.dart';
 import 'package:pokedex/infrastructure/models/api_pokemon.dart';
 
 class PokemonGraphQlDatasource extends PokemonDatasources {
-  final String urlbase = "beta.pokeapi.co";
+  final String urlbaseGraphQL = "beta.pokeapi.co";
+  final String urlbasePokedex = "https://pokeapi.co/api/v2/";
   @override
   Future<List<Pokemon>> getPokemonList(
       int offset,
@@ -20,7 +21,7 @@ class PokemonGraphQlDatasource extends PokemonDatasources {
       String type,
       String sortType,
       String generation) async {
-    var url = Uri.https(urlbase, 'graphql/v1beta');
+    var url = Uri.https(urlbaseGraphQL, 'graphql/v1beta');
     var queryGeneration = "";
     if (generation.isNotEmpty) {
       Map<String, int> limits = getIDLimitsByGeneration(int.parse(generation));
