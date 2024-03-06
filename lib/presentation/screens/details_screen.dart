@@ -1,16 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pokedex/config/theme/pokemon_colors.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
+import 'package:pokedex/domain/entities/pokemon_details.dart';
+import 'package:pokedex/presentation/blocs/pokemon_details_bloc/pokemon_details_bloc.dart';
 
-class DetailsScreen extends StatefulWidget {
+class DetailsScreen extends StatelessWidget {
   final String pokemonId;
+
   const DetailsScreen({Key? key, required this.pokemonId}) : super(key: key);
 
   @override
-  State<DetailsScreen> createState() => _DetailsScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => PokemonDetailsBloc(pokemonId),
+      child: BlocBuilder<PokemonDetailsBloc, PokemonDetailsState>(
+        builder: (context, state) {
+          if (state.isLoading || state.pokemon == null) {
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          return _DetailsView(pokemon: state.pokemon!);
+        },
+      ),
+    );
+  }
 }
 
-class _DetailsScreenState extends State<DetailsScreen>
+class _DetailsView extends StatefulWidget {
+  final PokemonDetails pokemon;
+  const _DetailsView({Key? key, required this.pokemon}) : super(key: key);
+
+  @override
+  State<_DetailsView> createState() => __DetailsViewState();
+}
+
+class __DetailsViewState extends State<_DetailsView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -36,96 +65,96 @@ class _DetailsScreenState extends State<DetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = Colors.deepOrangeAccent;
+    final backgroundColor =
+        PokemonColors.getBackgroundTypeColor(widget.pokemon.pokemonTypes[0]);
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: AppBar(
-          toolbarHeight: 200,
-          backgroundColor: backgroundColor,
-          automaticallyImplyLeading: false,
-          title: Container(
-            color: Colors.green,
-            height: 200,
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: goBack,
-                  icon: const Icon(Icons.arrow_back),
-                  color: Colors.white,
-                ),
-                Row(
-                  children: [
-                    Image.network(
-                      'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png',
-                      width: 125,
-                      height: 125,
-                    ),
-                    Container(
-                      height: 130,
-                      width: 270,
-                      color: Colors.amber,
-                    )
-                  ],
-                )
-              ],
+      body: SafeArea(
+        bottom: false,
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: backgroundColor,
+              height: 200,
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: goBack,
+                    icon: const Icon(Icons.arrow_back),
+                    color: Colors.white,
+                  ),
+                  Row(
+                    children: [
+                      Image.network(
+                        'https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${widget.pokemon.id}.png',
+                        width: 125,
+                        height: 125,
+                      ),
+                      Container(
+                        height: 130,
+                        width: 270,
+                        color: Colors.amber,
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
-          )),
-      body: Column(
-        children: <Widget>[
-          Container(
-            color: backgroundColor,
-            child: TabBar(
-              controller: _tabController,
-              onTap: (value) {
-                setState(() {});
-              },
-              physics: const NeverScrollableScrollPhysics(),
-              tabs: [
-                _CustomChildTab(
-                    title: 'About', selected: _tabController.index == 0),
-                _CustomChildTab(
-                    title: 'Stats', selected: _tabController.index == 1),
-                _CustomChildTab(
-                    title: 'Evolution', selected: _tabController.index == 2),
-              ],
+            Container(
+              color: backgroundColor,
+              child: TabBar(
+                controller: _tabController,
+                onTap: (value) {
+                  setState(() {});
+                },
+                physics: const NeverScrollableScrollPhysics(),
+                tabs: [
+                  _CustomChildTab(
+                      title: 'About', selected: _tabController.index == 0),
+                  _CustomChildTab(
+                      title: 'Stats', selected: _tabController.index == 1),
+                  _CustomChildTab(
+                      title: 'Evolution', selected: _tabController.index == 2),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            flex: 3,
-            child: TabBarView(
-              controller: _tabController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
-                      )),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
-                      )),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
-                      )),
-                ),
-              ],
+            Expanded(
+              flex: 3,
+              child: TabBarView(
+                controller: _tabController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        )),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        )),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        )),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
