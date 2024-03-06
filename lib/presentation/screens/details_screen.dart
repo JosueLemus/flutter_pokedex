@@ -7,6 +7,7 @@ import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/domain/entities/pokemon.dart';
 import 'package:pokedex/domain/entities/pokemon_details.dart';
 import 'package:pokedex/presentation/blocs/pokemon_details_bloc/pokemon_details_bloc.dart';
+import 'package:pokedex/presentation/widgets/about_pokemon_details.dart';
 import 'package:pokedex/presentation/widgets/pokemon_detail.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -159,36 +160,36 @@ class __DetailsViewState extends State<_DetailsView>
                 controller: _tabController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30),
-                        )),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30),
-                        )),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30),
-                        )),
-                  ),
+                  _BodyTab(
+                      child: AboutPokemonDetails(
+                    pokemon: pokemon,
+                  )),
+                  _BodyTab(child: Container()),
+                  _BodyTab(child: Container()),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _BodyTab extends StatelessWidget {
+  final Widget child;
+  const _BodyTab({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          )),
+      child: child,
     );
   }
 }
