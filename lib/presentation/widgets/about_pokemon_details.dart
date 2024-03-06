@@ -12,28 +12,25 @@ class AboutPokemonDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = PokemonColors.getTypeColor(pokemon.pokemonTypes[0]);
-    return Padding(
-      padding: const EdgeInsets.all(26.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "${StringHelpers.capitalize(pokemon.name)} can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays, the seed grows progressively larger.",
-            style: TextStyles.description,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text('Pokédex Data',
-              style: TextStyles.filterTitle.copyWith(color: color)),
-          const _PokedexData(data: 'Species', value: 'Seed Pokemon'),
-          _PokedexData(data: 'Height', value: '${(pokemon.height / 10)}m'),
-          _PokedexData(data: 'Weight', value: '${(pokemon.weight / 10)}kg'),
-          _PokedexData(
-              data: 'Abilities',
-              value: StringHelpers.getAbilitiesText(pokemon.abilities)),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "${StringHelpers.capitalize(pokemon.name)} can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays, the seed grows progressively larger.",
+          style: TextStyles.description,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Text('Pokédex Data',
+            style: TextStyles.filterTitle.copyWith(color: color)),
+        const _PokedexData(data: 'Species', value: 'Seed Pokemon'),
+        _PokedexData(data: 'Height', value: '${(pokemon.height / 10)}m'),
+        _PokedexData(data: 'Weight', value: '${(pokemon.weight / 10)}kg'),
+        _PokedexData(
+            data: 'Abilities',
+            value: StringHelpers.getAbilitiesText(pokemon.abilities)),
+      ],
     );
   }
 }

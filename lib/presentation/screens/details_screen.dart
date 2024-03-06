@@ -9,6 +9,7 @@ import 'package:pokedex/domain/entities/pokemon_details.dart';
 import 'package:pokedex/presentation/blocs/pokemon_details_bloc/pokemon_details_bloc.dart';
 import 'package:pokedex/presentation/widgets/about_pokemon_details.dart';
 import 'package:pokedex/presentation/widgets/pokemon_detail.dart';
+import 'package:pokedex/presentation/widgets/stats_pokemon_details.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String pokemonId;
@@ -164,7 +165,10 @@ class __DetailsViewState extends State<_DetailsView>
                       child: AboutPokemonDetails(
                     pokemon: pokemon,
                   )),
-                  _BodyTab(child: Container()),
+                  _BodyTab(
+                      child: StatsPokemonDetails(
+                    pokemon: pokemon,
+                  )),
                   _BodyTab(child: Container()),
                 ],
               ),
@@ -189,7 +193,10 @@ class _BodyTab extends StatelessWidget {
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
           )),
-      child: child,
+      child: Padding(
+        padding: const EdgeInsets.all(26.0),
+        child: child,
+      ),
     );
   }
 }
