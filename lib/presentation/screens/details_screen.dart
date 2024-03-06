@@ -1,10 +1,13 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokedex/config/theme/pokemon_colors.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
+import 'package:pokedex/domain/entities/pokemon.dart';
 import 'package:pokedex/domain/entities/pokemon_details.dart';
 import 'package:pokedex/presentation/blocs/pokemon_details_bloc/pokemon_details_bloc.dart';
+import 'package:pokedex/presentation/widgets/pokemon_detail.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String pokemonId;
@@ -18,7 +21,7 @@ class DetailsScreen extends StatelessWidget {
       child: BlocBuilder<PokemonDetailsBloc, PokemonDetailsState>(
         builder: (context, state) {
           if (state.isLoading || state.pokemon == null) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
               ),
@@ -67,6 +70,7 @@ class __DetailsViewState extends State<_DetailsView>
   Widget build(BuildContext context) {
     final backgroundColor =
         PokemonColors.getBackgroundTypeColor(widget.pokemon.pokemonTypes[0]);
+    final pokemon = widget.pokemon;
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -77,28 +81,57 @@ class __DetailsViewState extends State<_DetailsView>
               color: backgroundColor,
               height: 200,
               width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
                 children: [
-                  IconButton(
-                    onPressed: goBack,
-                    icon: const Icon(Icons.arrow_back),
-                    color: Colors.white,
-                  ),
-                  Row(
-                    children: [
-                      Image.network(
-                        'https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${widget.pokemon.id}.png',
-                        width: 125,
-                        height: 125,
+                  Positioned(
+                    top: -20,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: BounceInUp(
+                        child: _GradientText(
+                            text: pokemon.name.toUpperCase(),
+                            pokemonColor: backgroundColor),
                       ),
-                      Container(
-                        height: 130,
-                        width: 270,
-                        color: Colors.amber,
-                      )
-                    ],
-                  )
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 23),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          onPressed: goBack,
+                          icon: const Icon(Icons.arrow_back),
+                          color: Colors.white,
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: BounceInRight(
+                                child: Image.network(
+                                  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${widget.pokemon.id}.png',
+                                  width: 125,
+                                  height: 125,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: BounceInLeft(
+                                child: PokemonDetail(
+                                    pokemon: Pokemon(
+                                        id: pokemon.id,
+                                        name: pokemon.name,
+                                        pokemonTypes: pokemon.pokemonTypes)),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -216,7 +249,7 @@ class _GradientText extends StatelessWidget {
         ),
         Container(
           height: 130,
-          width: 390,
+          width: 500,
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
