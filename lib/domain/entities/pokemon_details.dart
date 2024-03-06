@@ -1,14 +1,14 @@
-class Pokemon {
+class PokemonDetails {
   int id;
   String name;
   int baseExperience;
   int height;
   int weight;
   List<String> pokemonTypes;
-  List<Ability> abilities;
-  List<Stat> stats;
+  List<PokemonAbility> abilities;
+  List<PokemonStat> stats;
 
-  Pokemon({
+  PokemonDetails({
     required this.id,
     required this.name,
     required this.baseExperience,
@@ -20,19 +20,19 @@ class Pokemon {
   });
 }
 
-class Ability {
+class PokemonAbility {
   String name;
   bool isHidden;
-  Ability({
+  PokemonAbility({
     required this.name,
     required this.isHidden,
   });
 }
 
-class Stat {
+class PokemonStat {
   String name;
   int value;
-  Stat({
+  PokemonStat({
     required this.name,
     required this.value,
   });

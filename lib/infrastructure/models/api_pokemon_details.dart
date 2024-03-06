@@ -4,12 +4,13 @@
 
 import 'dart:convert';
 
-PokemonDetails pokemonDetailsFromJson(String str) =>
-    PokemonDetails.fromJson(json.decode(str));
+ApiPokemonDetails pokemonDetailsFromJson(String str) =>
+    ApiPokemonDetails.fromJson(json.decode(str));
 
-String pokemonDetailsToJson(PokemonDetails data) => json.encode(data.toJson());
+String pokemonDetailsToJson(ApiPokemonDetails data) =>
+    json.encode(data.toJson());
 
-class PokemonDetails {
+class ApiPokemonDetails {
   List<Ability> abilities;
   int baseExperience;
   int height;
@@ -21,7 +22,7 @@ class PokemonDetails {
   List<Type> types;
   int weight;
 
-  PokemonDetails({
+  ApiPokemonDetails({
     required this.abilities,
     required this.baseExperience,
     required this.height,
@@ -34,7 +35,8 @@ class PokemonDetails {
     required this.weight,
   });
 
-  factory PokemonDetails.fromJson(Map<String, dynamic> json) => PokemonDetails(
+  factory ApiPokemonDetails.fromJson(Map<String, dynamic> json) =>
+      ApiPokemonDetails(
         abilities: List<Ability>.from(
             json["abilities"].map((x) => Ability.fromJson(x))),
         baseExperience: json["base_experience"],
