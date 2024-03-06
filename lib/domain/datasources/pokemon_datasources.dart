@@ -1,4 +1,5 @@
 import 'package:pokedex/domain/entities/pokemon.dart';
+import 'package:pokedex/domain/entities/pokemon_details.dart';
 
 abstract class PokemonDatasources {
   Future<List<Pokemon>> getPokemonList(
@@ -12,4 +13,6 @@ abstract class PokemonDatasources {
     String sortType,
     String generation,
   );
+
+  Future<PokemonDetails> getPokemonDetails(String pokemonId);
 }

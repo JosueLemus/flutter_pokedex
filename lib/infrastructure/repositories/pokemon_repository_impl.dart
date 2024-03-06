@@ -1,5 +1,6 @@
 import 'package:pokedex/domain/datasources/pokemon_datasources.dart';
 import 'package:pokedex/domain/entities/pokemon.dart';
+import 'package:pokedex/domain/entities/pokemon_details.dart';
 import 'package:pokedex/domain/repositories/pokemon_repository.dart';
 
 class PokemonRepositoryImplementation extends PokemonRepository {
@@ -19,5 +20,10 @@ class PokemonRepositoryImplementation extends PokemonRepository {
       String generation) {
     return datasource.getPokemonList(offset, textToSearch, minHeight, maxHeight,
         minWeight, maxWeight, type, sortType, generation);
+  }
+
+  @override
+  Future<PokemonDetails> getPokemonDetails(String pokemonId) {
+    return datasource.getPokemonDetails(pokemonId);
   }
 }

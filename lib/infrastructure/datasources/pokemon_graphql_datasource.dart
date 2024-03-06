@@ -4,12 +4,14 @@ import 'package:pokedex/config/helpers/pokemon_generations_helper.dart';
 import 'package:pokedex/domain/datasources/pokemon_datasources.dart';
 import 'package:pokedex/domain/entities/pokemon.dart';
 import 'package:http/http.dart' as http;
+import 'package:pokedex/domain/entities/pokemon_details.dart';
 import 'package:pokedex/infrastructure/mappers/pokemon_mapper.dart';
 import 'package:pokedex/infrastructure/models/api_pokemon.dart';
+import 'package:pokedex/infrastructure/models/api_pokemon_details.dart';
 
 class PokemonGraphQlDatasource extends PokemonDatasources {
   final String urlbaseGraphQL = "beta.pokeapi.co";
-  final String urlbasePokedex = "https://pokeapi.co/api/v2/";
+  final String urlbasePokedex = "pokeapi.co";
   @override
   Future<List<Pokemon>> getPokemonList(
       int offset,
@@ -83,5 +85,14 @@ class PokemonGraphQlDatasource extends PokemonDatasources {
         apiPokemonListFromJson(response.body).data.pokemonV2Pokemon;
 
     return PokemonMapper.apiPokemonToEntity(pokemonList);
+  }
+
+  @override
+  Future<PokemonDetails> getPokemonDetails(String pokemonId) async {
+    var url = Uri.https(urlbasePokedex, 'api/v2/pokemon/$pokemonId');
+    var response = await http.get(url);
+    final pokemon = pokemonDetailsFromJson(response.body);
+    final localPokemon = PokemonMapper.apiPokemonDetailToEntity(pokemon);
+    return localPokemon;
   }
 }
