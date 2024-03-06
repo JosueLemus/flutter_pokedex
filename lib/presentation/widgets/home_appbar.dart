@@ -151,12 +151,12 @@ void showCustomModalBottomSheet(BuildContext context, Widget child) {
             const SizedBox(height: 8),
             Container(
               // height: 1000,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),
-                  color: Colors.white),
+                  color: Theme.of(context).scaffoldBackgroundColor),
               child: child,
             ),
           ],
