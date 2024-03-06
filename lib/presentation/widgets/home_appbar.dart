@@ -150,9 +150,8 @@ void showCustomModalBottomSheet(BuildContext context, Widget child) {
                     borderRadius: BorderRadius.circular(10))),
             const SizedBox(height: 8),
             Container(
-              // height: 1000,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),

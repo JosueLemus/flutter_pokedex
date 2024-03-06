@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pokedex/config/helpers/string_helpers.dart';
 import 'package:pokedex/config/theme/pokemon_colors.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/domain/entities/pokemon.dart';
@@ -114,7 +115,7 @@ class __DetailsViewState extends State<_DetailsView>
                                   const EdgeInsets.symmetric(horizontal: 16),
                               child: BounceInRight(
                                 child: Image.network(
-                                  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/00${widget.pokemon.id}.png',
+                                  StringHelpers.getPokemonImageUrl(pokemon.id),
                                   width: 125,
                                   height: 125,
                                 ),
