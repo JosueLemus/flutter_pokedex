@@ -3,10 +3,10 @@ import 'package:pokedex/presentation/widgets/filters_appbar.dart';
 import 'package:pokedex/presentation/widgets/primary_button.dart';
 import 'package:pokedex/presentation/widgets/secondary_button.dart';
 
-class SortScreen extends StatelessWidget {
+class SortBottomSheet extends StatelessWidget {
   final String selectedSort;
   final Function(String selected) onSelect;
-  const SortScreen(
+  const SortBottomSheet(
       {super.key, required this.selectedSort, required this.onSelect});
 
   @override

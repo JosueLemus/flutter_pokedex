@@ -9,8 +9,8 @@ import 'package:pokedex/presentation/widgets/filters_appbar.dart';
 import 'package:pokedex/presentation/widgets/primary_button.dart';
 import 'package:pokedex/presentation/widgets/secondary_button.dart';
 
-class FiltersScreen extends StatelessWidget {
-  const FiltersScreen({super.key});
+class FiltersBottomSheet extends StatelessWidget {
+  const FiltersBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {

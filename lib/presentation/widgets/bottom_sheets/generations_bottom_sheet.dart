@@ -3,10 +3,10 @@ import 'package:pokedex/config/theme/app_colors.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/widgets/filters_appbar.dart';
 
-class GenerationsScreen extends StatelessWidget {
+class GenerationsBottomSheet extends StatelessWidget {
   final String selectedGeneration;
   final Function(String selected) onSelect;
-  const GenerationsScreen(
+  const GenerationsBottomSheet(
       {super.key, required this.selectedGeneration, required this.onSelect});
 
   @override

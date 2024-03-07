@@ -6,9 +6,9 @@ import 'package:pokedex/config/theme/app_colors.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
-import 'package:pokedex/presentation/screens/filters_screen.dart';
-import 'package:pokedex/presentation/screens/generations_screen.dart';
-import 'package:pokedex/presentation/screens/sort_screen.dart';
+import 'package:pokedex/presentation/widgets/bottom_sheets/filters_bottom_sheet.dart';
+import 'package:pokedex/presentation/widgets/bottom_sheets/generations_bottom_sheet.dart';
+import 'package:pokedex/presentation/widgets/bottom_sheets/sort_bottom_sheet.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
@@ -53,7 +53,7 @@ class HomeAppBar extends StatelessWidget {
                             .selectedGeneration;
                         showCustomModalBottomSheet(
                             context,
-                            GenerationsScreen(
+                            GenerationsBottomSheet(
                               selectedGeneration: selectedGeneration,
                               onSelect: (selected) {
                                 context.read<PokemonListBloc>().add(
@@ -73,7 +73,7 @@ class HomeAppBar extends StatelessWidget {
                               .selectedSort;
                           showCustomModalBottomSheet(
                               context,
-                              SortScreen(
+                              SortBottomSheet(
                                 selectedSort: selectedSort,
                                 onSelect: (selected) {
                                   context.read<PokemonListBloc>().add(
@@ -93,7 +93,7 @@ class HomeAppBar extends StatelessWidget {
                             heights: blocState.heights,
                             weights: blocState.weights));
                         showCustomModalBottomSheet(
-                            context, const FiltersScreen());
+                            context, const FiltersBottomSheet());
                       }),
                 ],
               ),
@@ -134,6 +134,7 @@ void showCustomModalBottomSheet(BuildContext context, Widget child) {
   showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
+      elevation: 0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
       ),

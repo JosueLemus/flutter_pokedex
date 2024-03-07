@@ -5,7 +5,7 @@ import 'package:pokedex/config/theme/text_styles.dart';
 class AppTheme {
   ThemeData getTheme() {
     return ThemeData(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         primaryColor: AppColors.primary,
         hintColor: AppColors.textGrey,
         progressIndicatorTheme:
