@@ -32,6 +32,7 @@ class HomeAppBar extends StatelessWidget {
             },
             child: Image.asset(
               "assets/images/gradient-pokeball.png",
+              height: 200,
             ),
           ),
         ),

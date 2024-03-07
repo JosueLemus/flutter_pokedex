@@ -9,6 +9,7 @@ import 'package:pokedex/domain/entities/pokemon.dart';
 import 'package:pokedex/domain/entities/pokemon_details.dart';
 import 'package:pokedex/presentation/blocs/pokemon_details_bloc/pokemon_details_bloc.dart';
 import 'package:pokedex/presentation/widgets/about_pokemon_details.dart';
+import 'package:pokedex/presentation/widgets/gradient_text.dart';
 import 'package:pokedex/presentation/widgets/pokemon_detail.dart';
 import 'package:pokedex/presentation/widgets/stats_pokemon_details.dart';
 
@@ -92,7 +93,7 @@ class __DetailsViewState extends State<_DetailsView>
                       scrollDirection: Axis.horizontal,
                       physics: const NeverScrollableScrollPhysics(),
                       child: BounceInUp(
-                        child: _GradientText(
+                        child: GradientText(
                             text: pokemon.name.toUpperCase(),
                             pokemonColor: backgroundColor),
                       ),
@@ -226,49 +227,6 @@ class _CustomChildTab extends StatelessWidget {
                   style: TextStyles.filterTitle.copyWith(color: Colors.white))),
         ],
       ),
-    );
-  }
-}
-
-class _GradientText extends StatelessWidget {
-  final String text;
-  final Color pokemonColor;
-  const _GradientText({
-    required this.text,
-    required this.pokemonColor,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ShaderMask(
-          blendMode: BlendMode.srcATop,
-          shaderCallback: (Rect bounds) {
-            return LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.white, pokemonColor],
-            ).createShader(bounds);
-          },
-          child: Text(text,
-              style: TextStyles.title.copyWith(
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 2)),
-        ),
-        Container(
-          height: 130,
-          width: 500,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                pokemonColor.withOpacity(0.8),
-                pokemonColor,
-              ])),
-        )
-      ],
     );
   }
 }
