@@ -1,6 +1,6 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pokedex/presentation/widgets/pockeball_spin.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -8,16 +8,6 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SpinPerfect(
-          onFinish: (direction) {
-            context.pushReplacement('/home');
-          },
-          child: Image.asset(
-            'assets/images/pokeball.png',
-          ),
-        ),
-      ),
-    );
+        body: PokeballSpin(onFinish: () => context.pushReplacement('/home')));
   }
 }

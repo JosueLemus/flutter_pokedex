@@ -10,6 +10,7 @@ import 'package:pokedex/domain/entities/pokemon_details.dart';
 import 'package:pokedex/presentation/blocs/pokemon_details_bloc/pokemon_details_bloc.dart';
 import 'package:pokedex/presentation/widgets/about_pokemon_details.dart';
 import 'package:pokedex/presentation/widgets/gradient_text.dart';
+import 'package:pokedex/presentation/widgets/pockeball_spin.dart';
 import 'package:pokedex/presentation/widgets/pokemon_detail.dart';
 import 'package:pokedex/presentation/widgets/stats_pokemon_details.dart';
 
@@ -25,11 +26,7 @@ class DetailsScreen extends StatelessWidget {
       child: BlocBuilder<PokemonDetailsBloc, PokemonDetailsState>(
         builder: (context, state) {
           if (state.isLoading || state.pokemon == null) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
+            return const Scaffold(body: PokeballSpin(onFinish: null));
           }
           return _DetailsView(pokemon: state.pokemon!);
         },
