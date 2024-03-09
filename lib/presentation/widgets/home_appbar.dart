@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/config/helpers/debounce_helper.dart';
@@ -22,7 +21,7 @@ class HomeAppBar extends StatelessWidget {
         Image.asset(
           "assets/images/gradient-pokeball.png",
           height: 200,
-          color: const Color(0xFFB5B9C4).withOpacity(0.1),
+          color: AppColors.pokeballGradient.withOpacity(0.1),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(30, 60, 30, 23),
@@ -34,16 +33,22 @@ class HomeAppBar extends StatelessWidget {
                 children: [
                   BlocBuilder<ThemeCubit, ThemeState>(
                       builder: (context, state) {
+                    final color =
+                        Theme.of(context).brightness == Brightness.light
+                            ? AppColors.textBlack
+                            : AppColors.darkThemeIconColor;
                     return IconButton(
                         onPressed: context.read<ThemeCubit>().setCurrentTheme,
                         icon: state.isDarkMode
-                            ? const Icon(
+                            ? Icon(
                                 Icons.light_mode,
-                                size: 28,
+                                size: 26,
+                                color: color,
                               )
-                            : const Icon(
+                            : Icon(
                                 Icons.dark_mode,
-                                size: 28,
+                                size: 26,
+                                color: color,
                               ));
                   }),
                   Expanded(child: Container()),

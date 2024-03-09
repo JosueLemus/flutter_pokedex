@@ -15,7 +15,9 @@ class AppTheme {
             dividerColor: Colors.transparent),
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: TextStyles.description,
-          fillColor: AppColors.backgroundDefaultInput,
+          fillColor: isDarkMode
+              ? AppColors.pokeballGradient.withOpacity(0.1)
+              : AppColors.backgroundDefaultInput,
           filled: true,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
