@@ -6,6 +6,7 @@ import 'package:pokedex/config/theme/app_colors.dart';
 import 'package:pokedex/config/theme/text_styles.dart';
 import 'package:pokedex/presentation/blocs/filters_bloc/filters_bloc.dart';
 import 'package:pokedex/presentation/blocs/pokemon_list_bloc/pokemon_list_bloc.dart';
+import 'package:pokedex/presentation/blocs/theme_bloc/theme_cubit.dart';
 import 'package:pokedex/presentation/widgets/bottom_sheets/filters_bottom_sheet.dart';
 import 'package:pokedex/presentation/widgets/bottom_sheets/generations_bottom_sheet.dart';
 import 'package:pokedex/presentation/widgets/bottom_sheets/sort_bottom_sheet.dart';
@@ -18,23 +19,10 @@ class HomeAppBar extends StatelessWidget {
     final debouncer = Debouncer(milliseconds: 700);
     return Stack(
       children: [
-        BounceInUp(
-          child: ShaderMask(
-            blendMode: BlendMode.srcATop,
-            shaderCallback: (Rect bounds) {
-              return LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: Theme.of(context).brightness == Brightness.light
-                    ? AppColors.pokeballGradientLightHome
-                    : AppColors.pokeballGradientDarkHome,
-              ).createShader(bounds);
-            },
-            child: Image.asset(
-              "assets/images/gradient-pokeball.png",
-              height: 200,
-            ),
-          ),
+        Image.asset(
+          "assets/images/gradient-pokeball.png",
+          height: 200,
+          color: const Color(0xFFB5B9C4).withOpacity(0.1),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(30, 60, 30, 23),
@@ -44,6 +32,21 @@ class HomeAppBar extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  BlocBuilder<ThemeCubit, ThemeState>(
+                      builder: (context, state) {
+                    return IconButton(
+                        onPressed: context.read<ThemeCubit>().setCurrentTheme,
+                        icon: state.isDarkMode
+                            ? const Icon(
+                                Icons.light_mode,
+                                size: 28,
+                              )
+                            : const Icon(
+                                Icons.dark_mode,
+                                size: 28,
+                              ));
+                  }),
+                  Expanded(child: Container()),
                   _FilterButton(
                       asset: 'assets/images/home-filters/Generation.png',
                       onTap: () {
