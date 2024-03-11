@@ -11,130 +11,129 @@ import 'package:pokedex/presentation/widgets/bottom_sheets/generations_bottom_sh
 import 'package:pokedex/presentation/widgets/bottom_sheets/sort_bottom_sheet.dart';
 
 class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({super.key});
+  const HomeAppBar({Key? key});
 
   @override
   Widget build(BuildContext context) {
     final debouncer = Debouncer(milliseconds: 700);
-    return Stack(
-      children: [
-        Image.asset(
-          "assets/images/gradient-pokeball.png",
-          height: 200,
-          color: AppColors.pokeballGradient.withOpacity(0.1),
+    return SliverAppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 24),
+          child: IconButton(
+              onPressed: context.read<ThemeCubit>().setCurrentTheme,
+              icon: Icon(
+                Theme.of(context).brightness == Brightness.dark
+                    ? Icons.light_mode
+                    : Icons.dark_mode,
+                size: 26,
+              )),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(30, 60, 30, 23),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  BlocBuilder<ThemeCubit, ThemeState>(
-                      builder: (context, state) {
-                    final color =
-                        Theme.of(context).brightness == Brightness.light
-                            ? AppColors.textBlack
-                            : AppColors.darkThemeIconColor;
-                    return IconButton(
-                        onPressed: context.read<ThemeCubit>().setCurrentTheme,
-                        icon: state.isDarkMode
-                            ? Icon(
-                                Icons.light_mode,
-                                size: 26,
-                                color: color,
-                              )
-                            : Icon(
-                                Icons.dark_mode,
-                                size: 26,
-                                color: color,
-                              ));
-                  }),
-                  Expanded(child: Container()),
-                  _FilterButton(
-                      asset: 'assets/images/home-filters/Generation.png',
-                      onTap: () {
-                        final selectedGeneration = context
+        actions: [
+          _FilterButton(
+              asset: 'assets/images/home-filters/Generation.png',
+              onTap: () {
+                final selectedGeneration =
+                    context.read<PokemonListBloc>().state.selectedGeneration;
+                showCustomModalBottomSheet(
+                    context,
+                    GenerationsBottomSheet(
+                      selectedGeneration: selectedGeneration,
+                      onSelect: (selected) {
+                        context.read<PokemonListBloc>().add(
+                            SelectedGenerationUpdated(
+                                selectedGeneration: selected));
+                      },
+                    ));
+              }),
+          _FilterButton(
+              asset: 'assets/images/home-filters/Sort.png',
+              onTap: () {
+                final selectedSort =
+                    context.read<PokemonListBloc>().state.selectedSort;
+                showCustomModalBottomSheet(
+                    context,
+                    SortBottomSheet(
+                      selectedSort: selectedSort,
+                      onSelect: (selected) {
+                        context
                             .read<PokemonListBloc>()
-                            .state
-                            .selectedGeneration;
-                        showCustomModalBottomSheet(
-                            context,
-                            GenerationsBottomSheet(
-                              selectedGeneration: selectedGeneration,
-                              onSelect: (selected) {
-                                context.read<PokemonListBloc>().add(
-                                    SelectedGenerationUpdated(
-                                        selectedGeneration: selected));
-                              },
-                            ));
-                      }),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: _FilterButton(
-                        asset: 'assets/images/home-filters/Sort.png',
-                        onTap: () {
-                          final selectedSort = context
-                              .read<PokemonListBloc>()
-                              .state
-                              .selectedSort;
-                          showCustomModalBottomSheet(
-                              context,
-                              SortBottomSheet(
-                                selectedSort: selectedSort,
-                                onSelect: (selected) {
-                                  context.read<PokemonListBloc>().add(
-                                      SelectedSortUpdated(
-                                          selectedSort: selected));
-                                },
-                              ));
-                        }),
-                  ),
-                  _FilterButton(
-                      asset: 'assets/images/home-filters/Filter.png',
-                      onTap: () {
-                        final blocState = context.read<PokemonListBloc>().state;
-                        context.read<FiltersBloc>().add(AllFiltersReplaced(
-                            types: blocState.types,
-                            weaknesses: blocState.weaknesses,
-                            heights: blocState.heights,
-                            weights: blocState.weights));
-                        showCustomModalBottomSheet(
-                            context, const FiltersBottomSheet());
-                      }),
-                ],
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              const Text(
-                'Pokédex',
-                style: TextStyles.applicationTitle,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 8, bottom: 16),
-                child: Text(
-                    'Search for Pokémon by name or using the National Pokédex number.'),
-              ),
-              TextField(
-                onChanged: (value) {
-                  debouncer.run(() {
-                    context
-                        .read<PokemonListBloc>()
-                        .add(SearchPokemon(textToSearch: value));
-                  });
-                },
-                decoration: const InputDecoration(
-                  hintText: "What Pokémon are you looking for?",
-                  prefixIcon: Icon(Icons.search_outlined),
+                            .add(SelectedSortUpdated(selectedSort: selected));
+                      },
+                    ));
+              }),
+          _FilterButton(
+              asset: 'assets/images/home-filters/Filter.png',
+              onTap: () {
+                final blocState = context.read<PokemonListBloc>().state;
+                context.read<FiltersBloc>().add(AllFiltersReplaced(
+                    types: blocState.types,
+                    weaknesses: blocState.weaknesses,
+                    heights: blocState.heights,
+                    weights: blocState.weights));
+                showCustomModalBottomSheet(context, const FiltersBottomSheet());
+              }),
+          const SizedBox(
+            width: 24,
+          )
+        ],
+        pinned: true,
+        expandedHeight: 270,
+        flexibleSpace: Stack(
+          children: [
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 0,
+              child: Center(
+                child: Image.asset(
+                  "assets/images/gradient-pokeball.png",
+                  height: 250,
+                  fit: BoxFit.cover,
+                  color: AppColors.pokeballGradient.withOpacity(0.05),
                 ),
-              )
-            ],
-          ),
-        )
-      ],
-    );
+              ),
+            ),
+            SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 60, 30, 23),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 60,
+                    ),
+                    const Text(
+                      'Pokédex',
+                      style: TextStyles.applicationTitle,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 8, bottom: 16),
+                      child: Text(
+                          'Search for Pokémon by name or using the National Pokédex number.'),
+                    ),
+                    TextField(
+                      onChanged: (value) {
+                        debouncer.run(() {
+                          context
+                              .read<PokemonListBloc>()
+                              .add(SearchPokemon(textToSearch: value));
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        hintText: "What Pokémon are you looking for?",
+                        prefixIcon: Icon(Icons.search_outlined),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }
 

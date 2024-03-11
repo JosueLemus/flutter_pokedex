@@ -14,52 +14,49 @@ class PokemonCard extends StatelessWidget {
     final pokemonCardColor =
         PokemonColors.getBackgroundTypeColor(pokemon.pokemonTypes[0]);
     String imageUrl = StringHelpers.getPokemonImageUrl(pokemon.id);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 4),
-      child: SlideInRight(
-        child: Container(
-          height: 150,
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-                color: pokemonCardColor.withOpacity(0.2),
-                offset: const Offset(0, 40),
-                blurRadius: 20)
-          ]),
-          child: Stack(
-            children: [
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  width: double.infinity,
-                  height: 115,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: pokemonCardColor,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: PokemonDetail(pokemon: pokemon),
-                  ),
+    return SlideInRight(
+      child: Container(
+        height: 150,
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              color: pokemonCardColor.withOpacity(0.2),
+              offset: const Offset(0, 25),
+              blurRadius: 20)
+        ]),
+        child: Stack(
+          children: [
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                width: double.infinity,
+                height: 115,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: pokemonCardColor,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: PokemonDetail(pokemon: pokemon),
                 ),
               ),
-              Positioned(
-                  right: 0,
-                  bottom: 0,
-                  child: Image.asset(
-                    'assets/images/background-card.png',
-                  )),
-              Positioned(
-                  right: 0,
-                  child: Image.network(
-                    imageUrl,
-                    width: 150,
-                    height: 150,
-                    fit: BoxFit.cover,
-                  ))
-            ],
-          ),
+            ),
+            Positioned(
+                right: 0,
+                bottom: 0,
+                child: Image.asset(
+                  'assets/images/background-card.png',
+                )),
+            Positioned(
+                right: 0,
+                child: Image.network(
+                  imageUrl,
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ))
+          ],
         ),
       ),
     );
