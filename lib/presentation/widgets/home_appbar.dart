@@ -17,9 +17,11 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final debouncer = Debouncer(milliseconds: 700);
     return SliverAppBar(
+        // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         leading: Padding(
           padding: const EdgeInsets.only(left: 24),
           child: IconButton(
+              highlightColor: Colors.transparent,
               onPressed: context.read<ThemeCubit>().setCurrentTheme,
               icon: Icon(
                 Theme.of(context).brightness == Brightness.dark
@@ -77,6 +79,7 @@ class HomeAppBar extends StatelessWidget {
           )
         ],
         pinned: true,
+        floating: true,
         expandedHeight: 270,
         flexibleSpace: Stack(
           children: [

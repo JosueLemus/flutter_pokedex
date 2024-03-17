@@ -5,6 +5,11 @@ import 'package:pokedex/config/theme/text_styles.dart';
 class AppTheme {
   ThemeData getTheme(bool isDarkMode) {
     return ThemeData(
+        appBarTheme: AppBarTheme(
+            surfaceTintColor: Colors.transparent,
+            foregroundColor: !isDarkMode
+                ? AppColors.textBlack
+                : AppColors.darkThemeIconColor),
         brightness: isDarkMode ? Brightness.dark : Brightness.light,
         primaryColor: AppColors.primary,
         hintColor: AppColors.textGrey,
