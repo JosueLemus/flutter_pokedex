@@ -19,7 +19,7 @@ class PokemonCard extends StatelessWidget {
         height: 150,
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-              color: pokemonCardColor.withOpacity(0.2),
+              color: pokemonCardColor.withOpacity(0.3),
               offset: const Offset(0, 25),
               blurRadius: 20)
         ]),
