@@ -22,19 +22,25 @@ class GenerationsBottomSheet extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 23),
             child: GridView.builder(
-                itemCount: 8,
-                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 9,
+                // physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
-                    childAspectRatio: 1.5),
+                    childAspectRatio: 1.2),
                 itemBuilder: (context, index) {
-                  final bool isSelected = selectedGeneration == '${index + 1}';
+                  final bool isSelected =
+                      selectedGeneration == '${index + 1}' ||
+                          (selectedGeneration == '' && index == 8);
                   return InkWell(
                     onTap: () {
                       if (!isSelected) {
-                        onSelect('${index + 1}');
+                        if (index == 8) {
+                          onSelect('');
+                        } else {
+                          onSelect('${index + 1}');
+                        }
                       }
                       Navigator.of(context).pop();
                     },
@@ -44,15 +50,44 @@ class GenerationsBottomSheet extends StatelessWidget {
                             color: isSelected
                                 ? AppColors.primary
                                 : AppColors.backgroundDefaultInput),
-                        height: 10,
-                        child: Center(
-                          child: Text(
-                            'Generation ${index + 1}',
-                            style: TextStyles.description.copyWith(
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Positioned(
+                              left: 10,
+                              right: 0,
+                              top: 10,
+                              bottom: 0,
+                              child: Image.asset(
+                                'assets/images/generation-card-bg.png',
+                                fit: BoxFit.cover,
                                 color: isSelected
-                                    ? AppColors.textWhite
-                                    : AppColors.textGrey),
-                          ),
+                                    ? AppColors.backgroundWhite.withOpacity(0.2)
+                                    : AppColors.textGrey.withOpacity(0.05),
+                              ),
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (index != 8)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 4),
+                                    child: Image.asset(
+                                        'assets/images/pokemon-generations/Generation ${index + 1}.png'),
+                                  ),
+                                Text(
+                                  index == 8
+                                      ? 'All'
+                                      : 'Generation ${index + 1}',
+                                  style: TextStyles.description.copyWith(
+                                      color: isSelected
+                                          ? AppColors.textWhite
+                                          : AppColors.textGrey),
+                                ),
+                              ],
+                            ),
+                          ],
                         )),
                   );
                 }),

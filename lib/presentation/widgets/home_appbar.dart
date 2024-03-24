@@ -141,6 +141,7 @@ class HomeAppBar extends StatelessWidget {
 }
 
 void showCustomModalBottomSheet(BuildContext context, Widget child) {
+  final size = MediaQuery.of(context).size;
   showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
@@ -168,7 +169,12 @@ void showCustomModalBottomSheet(BuildContext context, Widget child) {
                     topRight: Radius.circular(20),
                   ),
                   color: Theme.of(context).scaffoldBackgroundColor),
-              child: child,
+              child: SizedBox(
+                height: size.width > size.height ? size.height * 0.9 : null,
+                child: SingleChildScrollView(
+                  child: child,
+                ),
+              ),
             ),
           ],
         );
