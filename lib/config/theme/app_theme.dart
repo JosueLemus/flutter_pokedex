@@ -15,7 +15,7 @@ class AppTheme {
         hintColor: AppColors.textGrey,
         progressIndicatorTheme:
             const ProgressIndicatorThemeData(color: AppColors.primary),
-        tabBarTheme: const TabBarTheme(
+        tabBarTheme: const TabBarThemeData(
             indicatorColor: Colors.transparent,
             dividerColor: Colors.transparent),
         inputDecorationTheme: InputDecorationTheme(
